@@ -18,7 +18,10 @@
 }
 
 .menu_box {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -62,6 +65,4 @@
     background: white;
     height: 60px;
   }
-}
-
-/*# sourceMappingURL=BottomNavigation.module.css.map */
+}/*# sourceMappingURL=BottomNavigation.module.css.map */

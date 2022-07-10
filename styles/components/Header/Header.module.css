@@ -2,7 +2,10 @@
   width: 100%;
   height: 60px;
   font-family: "pretendard";
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .logo {
@@ -12,6 +15,4 @@
   font-weight: 700;
   color: #006107;
   margin: 0 20px 0 20px;
-}
-
-/*# sourceMappingURL=Header.module.css.map */
+}/*# sourceMappingURL=Header.module.css.map */
