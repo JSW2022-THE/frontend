@@ -15,3 +15,23 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.container {
+  max-width: 1023px;
+  margin: auto;
+  overflow: hidden;
+}
+
+/* 태블릿 가로까지 */
+@media all and (max-width:1023px) {
+  .container {
+    width: 100%;
+  }
+}
+
+/* 스마트폰 가로까지 */
+/*@media all and (max-width: 767px) {*/
+/*  .container {*/
+/*    width: 100%;*/
+/*  }*/
+/*}*/

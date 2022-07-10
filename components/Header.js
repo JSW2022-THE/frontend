@@ -4,7 +4,9 @@ const Header = () => {
     return (
         <>
             <div className={styles.header}>
-                굿잡
+                <div className={styles.logo}>
+                    굿잡
+                </div>
             </div>
         </>
     )

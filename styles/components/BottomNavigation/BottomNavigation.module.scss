@@ -1,8 +1,19 @@
 
-.BottomNavigation {
+.bottom_navigation {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 1023px;
   background: white;
-  height: 3.5rem;
+  height: 60px;
+}
+
+/* 태블릿 가로까지 */
+@media all and (max-width:1023px) {
+  .bottom_navigation {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    height: 60px;
+  }
 }

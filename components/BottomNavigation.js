@@ -3,7 +3,7 @@ import styles from '../styles/components/BottomNavigation/BottomNavigation.modul
 const BottomNavigation = (props) => {
     return (
         <>
-            <div className={styles.BottomNavigation}>
+            <div className={styles.bottom_navigation}>
 
             </div>
         </>
