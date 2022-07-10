@@ -1,5 +1,5 @@
 import styles from '../styles/components/BottomNavigation/BottomNavigation.module.css'
-import {IoMdHome} from "react-icons/io";
+import {IoHomeSharp, IoBook, IoCompassSharp, IoPersonSharp, IoBuildSharp} from "react-icons/io5";
 import classNames from "classnames";
 
 const BottomNavigation = (props) => {
@@ -11,7 +11,7 @@ const BottomNavigation = (props) => {
                     <div className={classNames(styles.menu_box, styles.menu_active)}>
                         <div className={styles.menu_center}>
                             <div className={styles.menu_icon}>
-                                <IoMdHome />
+                                <IoHomeSharp />
                             </div>
                             <div className={styles.menu_name}>
                                 홈
@@ -21,40 +21,40 @@ const BottomNavigation = (props) => {
                     <div className={styles.menu_box}>
                         <div className={styles.menu_center}>
                             <div className={styles.menu_icon}>
-                                <IoMdHome />
+                                <IoCompassSharp />
                             </div>
                             <div className={styles.menu_name}>
-                                홈
+                                내 주변
                             </div>
                         </div>
                     </div>
                     <div className={styles.menu_box}>
                         <div className={styles.menu_center}>
                             <div className={styles.menu_icon}>
-                                <IoMdHome />
+                                <IoBook />
                             </div>
                             <div className={styles.menu_name}>
-                                홈
+                                지식
                             </div>
                         </div>
                     </div>
                     <div className={styles.menu_box}>
                         <div className={styles.menu_center}>
                             <div className={styles.menu_icon}>
-                                <IoMdHome />
+                                <IoBuildSharp />
                             </div>
                             <div className={styles.menu_name}>
-                                홈
+                                도구
                             </div>
                         </div>
                     </div>
                     <div className={styles.menu_box}>
                         <div className={styles.menu_center}>
                             <div className={styles.menu_icon}>
-                                <IoMdHome />
+                                <IoPersonSharp />
                             </div>
                             <div className={styles.menu_name}>
-                                홈
+                                나의 메뉴
                             </div>
                         </div>
                     </div>
