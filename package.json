@@ -19,6 +19,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
+    "react-spring-bottom-sheet": "^3.4.1",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.2"
   },
