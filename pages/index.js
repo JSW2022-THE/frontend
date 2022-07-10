@@ -1,9 +1,11 @@
 import BottomNavigation from "../components/BottomNavigation";
+import Header from "../components/Header";
 
 export default function Home() {
   return (
     <>
-      <BottomNavigation/>
+        <Header/>
+        <BottomNavigation/>
     </>
   )
 }
