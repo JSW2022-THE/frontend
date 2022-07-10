@@ -26,6 +26,8 @@
   margin: auto;
   border-radius: 10px;
   text-align: center;
+  outline:none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .menu_active {
