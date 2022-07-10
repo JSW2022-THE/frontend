@@ -1,0 +1,9 @@
+.BottomNavigation {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  height: 3.5rem;
+}
+
+/*# sourceMappingURL=BottomNavigation.module.css.map */
