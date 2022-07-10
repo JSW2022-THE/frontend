@@ -4,7 +4,8 @@
   "private": true,
   "browserslist": [
     "last 4 version",
-    "> 1%"
+    "> 1%",
+    "not dead"
   ],
   "scripts": {
     "dev": "next dev",
