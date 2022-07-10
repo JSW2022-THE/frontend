@@ -22,7 +22,7 @@ export default function BottomNavigation(props) {
     { id: 4, name: "도구", iconName: IoBuildSharp, path: "/worker/tools" },
     {
       id: 5,
-      name: "나의 메뉴",
+      name: "내 메뉴",
       iconName: IoPersonSharp,
       path: "/worker/mypage",
     },
@@ -30,7 +30,7 @@ export default function BottomNavigation(props) {
   return (
     <>
       <div className={styles.bottom_navigation}>
-        {/* 메뉴 갯수에 따라 scss 파일에서 width 길이 나누기 변경할 것 (메뉴 갯수로) */}
+        {/* 메뉴 갯수에 따라 scss 파일에서 float 변경 (메뉴 갯수로) */}
         <div className={styles.menu}>
           {navItems.map((item) => {
             return <NavItem key={item.id} itemData={item} />;
