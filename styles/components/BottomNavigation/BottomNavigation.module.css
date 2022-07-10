@@ -9,6 +9,50 @@
   border-top-right-radius: 15px;
 }
 
+.menu {
+  flex: 5;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 60px;
+}
+
+.menu_box {
+  user-select: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.menu_active {
+  background: rgba(203, 203, 203, 0.3);
+}
+
+.menu_center {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  justify-content: center;
+  height: 50px;
+}
+
+.menu_icon {
+  height: 25px;
+  font-size: 1.5rem;
+  width: 100%;
+}
+
+.menu_name {
+  font-family: "pretendard";
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
 /* 태블릿 가로까지 */
 @media all and (max-width: 1023px) {
   .bottom_navigation {
