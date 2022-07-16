@@ -38,4 +38,17 @@
   cursor: pointer;
 }
 
+@media all and (max-width: 350px) {
+  .login_box {
+    width: 100vw;
+    padding: 20px;
+  }
+  .kakao {
+    width: calc(100vw - 40px);
+  }
+  .big_text {
+    font-size: 1.15rem;
+  }
+}
+
 /*# sourceMappingURL=login.module.css.map */
