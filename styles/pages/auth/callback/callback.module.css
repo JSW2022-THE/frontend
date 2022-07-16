@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+}
+
+.box {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 7px 15px 0 rgba(197, 197, 197, 0.3);
+}
+
+.big_text {
+  font-family: "pretendard";
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: left;
+  user-select: none;
+  color: black;
+}
+
+.small_text {
+  font-family: "pretendard";
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: left;
+  user-select: none;
+  margin-top: 10px;
+  color: #646464;
+}
+
+.spinner {
+  margin-top: 25px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=callback.module.css.map */
