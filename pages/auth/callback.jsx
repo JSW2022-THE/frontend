@@ -4,6 +4,7 @@ import styles from '../../styles/pages/auth/callback/callback.module.css'
 import axios from 'axios'
 import {Oval} from "react-loading-icons";
 import {motion} from "framer-motion";
+import {useEffect} from "react";
 
 export default function Callback() {
 
@@ -13,6 +14,25 @@ export default function Callback() {
         damping: 20,
         stiffness: 100
     };
+
+    useEffect(()=>{
+        if(!router.isReady) return;
+        console.log(router.query)
+        axios({
+            method: 'post',
+            url: 'http://localhost:2000/api/auth/login',
+            data: {
+                token: router.query.code
+            },
+            withCredentials: true,
+        })
+            .then(r=>{
+                console.log(r.data)
+            })
+            .catch(e=>{
+                console.log(e.data)
+            })
+    }, [router.isReady])
     return (
         <>
             <Header/>
