@@ -14,8 +14,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.9.1",
+    "@mui/styles": "^5.9.1",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
+    "emotion": "^11.0.0",
     "framer-motion": "^6.5.1",
     "next": "12.2.1",
     "postcss-loader": "^7.0.0",
@@ -23,6 +29,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-loading-icons": "^1.1.0",
+    "react-spring": "^9.5.0",
     "react-spring-bottom-sheet": "^3.4.1",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.2"
