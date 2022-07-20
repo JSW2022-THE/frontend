@@ -1,14 +1,14 @@
 import '../styles/globals.css'
-import {Reset} from "styled-reset";
+import { Reset } from "styled-reset";
 
 function MyApp({ Component, pageProps }) {
   return (
-      <>
-        <Reset />
-        <div className='container'>
-            <Component {...pageProps} />
-        </div>
-      </>
+    <>
+      <Reset />
+      <div className='container'>
+        <Component {...pageProps} />
+      </div>
+    </>
   )
 }
 
