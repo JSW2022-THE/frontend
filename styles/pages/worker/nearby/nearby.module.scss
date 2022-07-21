@@ -1,0 +1,28 @@
+
+.map {
+  position: relative;
+  max-width: 1023px;
+  //width: calc(100vw * 0.9);
+  height: calc(((100vh - 120px) / 2) - 2rem);
+  box-shadow: 0 7px 25px 0px rgba(150, 150, 150, 0.3);
+  border-radius: 20px;
+}
+
+.map_box {
+  width: calc(100vw - 10rem);
+  margin: auto;
+}
+
+.map_container {
+  height: calc(((100vh - 120px) / 2) + 2rem);
+}
+
+@media all and (max-width: 1023px) {
+  .map {
+    width: calc(100vw - 2rem);
+    left: 1rem;
+  }
+  .map_box {
+    width: calc(100vw);
+  }
+}

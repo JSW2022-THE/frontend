@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import BottomNavigation from "../../components/BottomNavigation";
 import React, { useEffect } from "react";
+import styles from '../../styles/pages/worker/nearby/nearby.module.css';
 
 export default function WorkerNearBy() {
   useEffect(() => {
@@ -25,13 +26,11 @@ export default function WorkerNearBy() {
   return (
     <>
       <Header />
-      <div
-        id="KakaoMap"
-        style={{
-          width: "900px",
-          height: "450px",
-        }}
-      ></div>
+      <div className={styles.map_container}>
+        <div className={styles.map_box}>
+          <div id="KakaoMap" className={styles.map} />
+        </div>
+      </div>
       <BottomNavigation isWorker={true} />
     </>
   );
