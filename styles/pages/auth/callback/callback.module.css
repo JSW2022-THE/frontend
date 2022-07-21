@@ -17,10 +17,7 @@
   font-size: 1.25rem;
   font-weight: 700;
   text-align: left;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
   color: black;
 }
 
@@ -29,10 +26,7 @@
   font-size: 0.75rem;
   font-weight: 500;
   text-align: left;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
   margin-top: 10px;
   color: #646464;
 }
@@ -198,4 +192,23 @@
   font-weight: 400;
   font-size: 0.75em;
   margin-top: 0.5rem;
-}/*# sourceMappingURL=callback.module.css.map */
+}
+
+.result_text {
+  text-align: center;
+  font-family: "pretendard";
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 3rem 0;
+  line-height: 25px;
+}
+
+.result_text_mini {
+  text-align: center;
+  font-family: "pretendard";
+  font-weight: 400;
+  font-size: 0.75rem;
+  margin: 1rem 0;
+}
+
+/*# sourceMappingURL=callback.module.css.map */

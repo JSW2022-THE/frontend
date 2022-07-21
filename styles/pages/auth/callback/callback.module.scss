@@ -200,10 +200,19 @@
   margin-top: 0.5rem;
 }
 
-//.finally_text {
-//  text-align: center;
-//  font-family: 'pretendard';
-//  font-weight: 600;
-//  font-size: 1.25em;
-//  margin: 0 5rem;
-//}
+.result_text {
+  text-align: center;
+  font-family: 'pretendard';
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 3rem 0;
+  line-height: 25px;
+}
+
+.result_text_mini {
+  text-align: center;
+  font-family: 'pretendard';
+  font-weight: 400;
+  font-size: 0.75rem;
+  margin: 1rem 0;
+}

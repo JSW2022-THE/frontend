@@ -19,7 +19,7 @@ export default function Callback() {
         damping: 20,
         stiffness: 100
     };
-    const [birthdayValue, setBirthdayValue] = useState(null);
+    const [resultSheet, setResultSheet] = useState(false)
     const [name, setName] = useState('')
     const [termsAgree, setTermsAgree] = useState({ terms1: false, terms2: false })
     const [termsSheet, setTermsSheet] = useState(false)
@@ -33,6 +33,7 @@ export default function Callback() {
         dateOfBirth: null,
         type: '', // teenager 또는 adult
     })
+    const [endButton, setEndButton] = useState('')
     useEffect(()=>{
         if(!router.isReady) return;
         axios({
@@ -194,6 +195,7 @@ export default function Callback() {
                             }
                             setTypeSheet(false)
                             setProfileSheet(true)
+                            setEndButton(formData.type=='teenager'?'근로자':'사업자' + "로 계속하기")
                         }}
                     >
                         <div className={styles.bottom_button_text}>
@@ -249,6 +251,7 @@ export default function Callback() {
                             let dateOfBirth = `${birth.getFullYear()}-${birth.getMonth()+1}-${birth.getDate()}`
                             setFormData({ ...formData, dateOfBirth: dateOfBirth, name: name })
                             setProfileSheet(false)
+                            setEndButton('처리 중...')
                         } else {
                             alert('이름 또는 생년월일을 입력해주세요.')
                             return
@@ -262,12 +265,10 @@ export default function Callback() {
                         })
                             .then(r=>{
                                 if(r.data.status == 'success') {
-                                    router.push('/')
+                                    setResultSheet(true)
+                                    setTimeout(()=>router.push('/'), 3000)
                                 } else {
                                     alert('처리 중 오류가 발생하였습니다. 이전 페이지로 돌아가 다시 로그인을 해주세요.')
-                                    console.log(1)
-                                    console.log(formData)
-                                    console.log(r)
                                 }
                             })
                             .catch(e=>{
@@ -275,7 +276,21 @@ export default function Callback() {
                             })
                     }}>
                         <div className={styles.bottom_button_text}>
-                            {formData.type=='teenager'?'근로자':'사업자'}로 계속하기
+                            {endButton}
+                        </div>
+                    </div>
+                </BottomSheet>
+                <BottomSheet open={resultSheet} header={(<div className={styles.bottom_title}>완료</div>)}>
+                    <div className={styles.bottom_box}>
+                        <div className={styles.form}>
+                            <div className={styles.form_box}>
+                                <div className={styles.result_text}>
+                                    {formData.name}님😊<br/>회원가입이 완료되었습니다. 🎉
+                                </div>
+                                <div className={styles.result_text_mini}>
+                                    잠시후 홈으로 이동됩니다.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </BottomSheet>
