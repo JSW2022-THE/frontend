@@ -17,7 +17,10 @@
   font-size: 1.25rem;
   font-weight: 700;
   text-align: left;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   color: black;
 }
 
@@ -26,7 +29,10 @@
   font-size: 0.75rem;
   font-weight: 500;
   text-align: left;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   margin-top: 10px;
   color: #646464;
 }
@@ -192,6 +198,4 @@
   font-weight: 400;
   font-size: 0.75em;
   margin-top: 0.5rem;
-}
-
-/*# sourceMappingURL=callback.module.css.map */
+}/*# sourceMappingURL=callback.module.css.map */

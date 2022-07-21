@@ -17,7 +17,10 @@
   font-size: 1.25rem;
   font-weight: 700;
   text-align: left;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   color: black;
 }
 
@@ -26,7 +29,10 @@
   font-size: 0.75rem;
   font-weight: 500;
   text-align: left;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   margin-top: 10px;
   color: #646464;
 }
@@ -34,7 +40,10 @@
 .kakao {
   margin-top: 25px;
   width: 300px;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   cursor: pointer;
 }
 
@@ -49,6 +58,4 @@
   .big_text {
     font-size: 1.15rem;
   }
-}
-
-/*# sourceMappingURL=login.module.css.map */
+}/*# sourceMappingURL=login.module.css.map */

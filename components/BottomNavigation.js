@@ -31,25 +31,25 @@ export default function BottomNavigation(props) {
     },
   ];
   const employerNavItems = [
-    { id: 1, name: "홈", iconName: IoHomeSharp, path: "/worker/home" },
+    { id: 1, name: "홈", iconName: IoHomeSharp, path: "/employer/home" },
     {
       id: 2,
       name: "빠른급구",
       iconName: IoSearch,
-      path: "/worker/nearby",
+      path: "/employer/nearby",
     },
     {
       id: 3,
       name: "공고등록",
       iconName: FaPlus,
-      path: "/worker/knowledge",
+      path: "/employer/knowledge",
     },
-    { id: 4, name: "채팅", iconName: IoChatbubble, path: "/worker/tools" },
+    { id: 4, name: "채팅", iconName: IoChatbubble, path: "/employer/tools" },
     {
       id: 5,
       name: "내 메뉴",
       iconName: IoPersonSharp,
-      path: "/worker/mypage",
+      path: "/employer/mypage",
     },
   ];
   return (
