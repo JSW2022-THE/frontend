@@ -7,17 +7,20 @@ import {motion} from "framer-motion";
 import {useEffect, useState} from "react";
 import {BottomSheet} from "react-spring-bottom-sheet";
 import 'react-spring-bottom-sheet/dist/style.css'
-import {Checkbox, FormControlLabel, FormGroup, TextField} from "@mui/material";
+import {Checkbox, FormControlLabel, FormGroup, Stack, TextField} from "@mui/material";
 import classNames from "classnames";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import {DesktopDatePicker} from "@mui/x-date-pickers";
 
 export default function Callback() {
-
     const router = useRouter()
     const config = {
         type: "spring",
         damping: 20,
         stiffness: 100
     };
+    const [birthdayValue, setBirthdayValue] = useState(null);
+    const [name, setName] = useState('')
     const [termsAgree, setTermsAgree] = useState({ terms1: false, terms2: false })
     const [termsSheet, setTermsSheet] = useState(false)
     const [typeSheet, setTypeSheet] = useState(false)
@@ -27,10 +30,9 @@ export default function Callback() {
     const [formData, setFormData] = useState({
         agree_terms: false,
         name: '',
-        age: '',
+        dateOfBirth: null,
         type: '', // teenager 또는 adult
     })
-
     useEffect(()=>{
         if(!router.isReady) return;
         axios({
@@ -52,10 +54,12 @@ export default function Callback() {
                         if (!r.data.agree_tos) {
                             // 기초정보 확인 페이지 이동
                             console.log('tos 동의 안함')
+                            setName(r.data.name)
                             setTermsSheet(true)
                         } else {
                             // 홈으로 이동
                             console.log('동의 함=> 기본정보 다 채움')
+                            router.push('/')
                         }
                     })
                     .catch(e=>{
@@ -199,7 +203,7 @@ export default function Callback() {
                 </BottomSheet>
                 <BottomSheet
                     open={profileSheet}
-                    header={(<div className={styles.bottom_title}>약관 동의</div>)}
+                    header={(<div className={styles.bottom_title}>기본정보 입력</div>)}
                 >
                     <div className={styles.bottom_box}>
                         <div className={styles.form}>
@@ -210,16 +214,68 @@ export default function Callback() {
                                 <div className={styles.typeintro_text} style={{marginBottom: '1rem'}}>
                                     기초 정보를 입력해주세요.
                                 </div>
-                                <TextField fullWidth label="이름" id="fullWidth" helperText="이름을 입력해주세요."/>
-                                <TextField fullWidth label="이름" id="fullWidth" />
+                                <Stack spacing={2}>
+                                    <TextField
+                                        helperText='실명을 입력해주세요.'
+                                        fullWidth
+                                        label="이름(실명)"
+                                        id="fullWidth"
+                                        value={formData.name}
+                                        onChange={(data)=>{
+                                            setFormData({...formData, name: data.target.value})
+                                        }} />
+                                    <DesktopDatePicker
+                                        label="생년월일"
+                                        value={formData.dateOfBirth}
+                                        onChange={(value) => {
+                                            console.log(value)
+                                            setFormData({...formData, dateOfBirth: value})
+                                        }}
+                                        renderInput={(params) => <TextField fullWidth={true} {...params} helperText='8자리로 입력해주세요. 예) 20050416' />}
+                                        disableOpenPicker={true}
+                                        disableFuture={true}
+                                        disableHighlightToday={true}
+                                        // readOnly={true}
+                                        mask={"____-__-__"}
+                                        inputFormat={"yyyy-MM-dd"}
+                                    />
+                                </Stack>
                             </div>
                         </div>
                     </div>
                     <div className={styles.bottom_button} onClick={()=>{
-
+                        if (formData.dateOfBirth != 'Invalid Date' && name.length > 1) {
+                            let birth = formData.dateOfBirth
+                            let dateOfBirth = `${birth.getFullYear()}-${birth.getMonth()+1}-${birth.getDate()}`
+                            setFormData({ ...formData, dateOfBirth: dateOfBirth, name: name })
+                            setProfileSheet(false)
+                        } else {
+                            alert('이름 또는 생년월일을 입력해주세요.')
+                            return
+                        }
+                        axios({
+                            method:'post',
+                            url: 'http://localhost:2000/api/auth/new/user',
+                            data: formData,
+                            responseType: 'json',
+                            withCredentials: true,
+                        })
+                            .then(r=>{
+                                if(r.data.status == 'success') {
+                                    router.push('/')
+                                } else {
+                                    alert('처리 중 오류가 발생하였습니다. 이전 페이지로 돌아가 다시 로그인을 해주세요.')
+                                    console.log(1)
+                                    console.log(formData)
+                                    console.log(r)
+                                }
+                            })
+                            .catch(e=>{
+                                alert('처리 중 오류가 발생하였습니다. 이전 페이지로 돌아가 다시 로그인을 해주세요.')
+                            })
                     }}>
                         <div className={styles.bottom_button_text}>
-                            다음으로
+                            {formData.type=='teenager'?'근로자':'사업자'}로 계속하기
                         </div>
                     </div>
                 </BottomSheet>
