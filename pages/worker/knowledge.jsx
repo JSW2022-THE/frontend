@@ -5,7 +5,7 @@ export default function WorkerKnowledge() {
   return (
     <>
       <Header />
-      <BottomNavigation />
+      <BottomNavigation isWorker={true} />
     </>
   );
 }

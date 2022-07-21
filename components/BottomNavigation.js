@@ -5,12 +5,15 @@ import {
   IoCompassSharp,
   IoPersonSharp,
   IoBuildSharp,
+  IoSearch,
+  IoChatbubble,
 } from "react-icons/io5";
+import { FaPlus } from "react-icons/fa";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 
 export default function BottomNavigation(props) {
-  const navItems = [
+  const workerNavItems = [
     { id: 1, name: "홈", iconName: IoHomeSharp, path: "/worker/home" },
     {
       id: 2,
@@ -27,15 +30,45 @@ export default function BottomNavigation(props) {
       path: "/worker/mypage",
     },
   ];
+  const employerNavItems = [
+    { id: 1, name: "홈", iconName: IoHomeSharp, path: "/worker/home" },
+    {
+      id: 2,
+      name: "빠른급구",
+      iconName: IoSearch,
+      path: "/worker/nearby",
+    },
+    {
+      id: 3,
+      name: "공고등록",
+      iconName: FaPlus,
+      path: "/worker/knowledge",
+    },
+    { id: 4, name: "채팅", iconName: IoChatbubble, path: "/worker/tools" },
+    {
+      id: 5,
+      name: "내 메뉴",
+      iconName: IoPersonSharp,
+      path: "/worker/mypage",
+    },
+  ];
   return (
     <>
       <div className={styles.bottom_navigation}>
         {/* 메뉴 갯수에 따라 scss 파일에서 float 변경 (메뉴 갯수로) */}
-        <div className={styles.menu}>
-          {navItems.map((item) => {
-            return <NavItem key={item.id} itemData={item} />;
-          })}
-        </div>
+        {props.isWorker ? (
+          <div className={styles.menu}>
+            {workerNavItems.map((item) => {
+              return <NavItem key={item.id} itemData={item} />;
+            })}
+          </div>
+        ) : (
+          <div className={styles.menu}>
+            {employerNavItems.map((item) => {
+              return <NavItem key={item.id} itemData={item} />;
+            })}
+          </div>
+        )}
       </div>
     </>
   );

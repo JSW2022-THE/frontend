@@ -5,7 +5,7 @@ export default function WorkerTools() {
   return (
     <>
       <Header />
-      <BottomNavigation />
+      <BottomNavigation isWorker={true} />
     </>
   );
 }

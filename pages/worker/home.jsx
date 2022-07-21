@@ -5,7 +5,7 @@ export default function WorkerHome() {
   return (
     <>
       <Header />
-      <BottomNavigation />
+      <BottomNavigation isWorker={true} />
     </>
   );
 }
