@@ -188,15 +188,16 @@ export default function Callback() {
                         onClick={()=>{
                             if(selectTeen == true && selectAdult == false) {
                                 setFormData({...formData, type: 'teenager'})
+                                setEndButton('근로자로 계속하기')
                             } else if (selectTeen == false && selectAdult == true) {
                                 setFormData({...formData, type: 'adult'})
+                                setEndButton('사업자로 계속하기')
                             } else {
                                 alert('청소년/성인 중 선택해주세요.')
                                 return
                             }
                             setTypeSheet(false)
                             setProfileSheet(true)
-                            setEndButton(formData.type=='teenager'?'근로자':'사업자' + "로 계속하기")
                         }}
                     >
                         <div className={styles.bottom_button_text}>
