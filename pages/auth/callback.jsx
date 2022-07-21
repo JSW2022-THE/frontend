@@ -56,6 +56,7 @@ export default function Callback() {
                             // 기초정보 확인 페이지 이동
                             console.log('tos 동의 안함')
                             setName(r.data.name)
+                            setFormData({...formData, name: r.data.name})
                             setTermsSheet(true)
                         } else {
                             // 홈으로 이동
