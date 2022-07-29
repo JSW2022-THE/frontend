@@ -24,17 +24,16 @@
   margin-top: -2rem;
   background: white;
   border-radius: 20px;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow:hidden;
 }
 
 .list_title {
-  border-radius: 20px;
+  border-radius: 20px 20px 0 0;
   width: calc(100vw * 0.9);
+  max-width: 1023px;
   position: fixed;
   padding: 1.25rem;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
+  background: white;
   z-index: 1;
 }
 
@@ -46,7 +45,14 @@
 }
 
 .list_title_guard {
-  height: calc(56px - 1.5rem);
+  //height: calc(56px - 1.5rem);
+  height: 56px;
+}
+
+.list_store_group {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: calc(100% - 56px);
 }
 
 .list_store_container {
@@ -54,6 +60,10 @@
   height: 80px;
   //background: red;
   margin-top: 0.75rem;
+
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 .list_store_box {
