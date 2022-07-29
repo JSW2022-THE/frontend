@@ -9,20 +9,22 @@
   box-shadow: 0 7px 25px 0px rgba(150, 150, 150, 0.3);
   border-radius: 20px;
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.map_box {
-  width: calc(100vw - 10rem);
-  margin: auto;
-}
+.map_box {}
 
 .map_container {
   height: calc((((var(--vh, 1vh) * 100) - 120px) / 2) + 2rem);
+  width: 90vw;
+  margin: 0;
 }
 
 .list {
   max-width: 1023px;
   width: calc(100vw * 0.9);
+  margin: auto;
   height: calc((((var(--vh, 1vh) * 100) - 120px) / 2) - 2rem);
   margin-top: -2rem;
   background: white;
@@ -124,10 +126,6 @@
 }
 
 @media all and (max-width: 1023px) {
-  .map {
-    width: calc(100vw - 2rem);
-    left: 1rem;
-  }
   .map_box {
     width: calc(100vw);
   }
