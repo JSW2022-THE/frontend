@@ -5,6 +5,7 @@
 
 # Next.js
 .next
+out
 
 # User-specific files
 *.rsuser
