@@ -33,8 +33,9 @@
 }
 
 .square_large {
-  width: calc(100% - 8rem);
-  min-height: 200px;
+  user-select: none;
+  width: calc(100% - 4rem);
+  height: 150px;
   background: white;
   margin: auto;
   margin-bottom: 1rem;
@@ -42,20 +43,60 @@
   box-shadow: 0px 7px 15px 0px rgba(208, 208, 208, 0.3);
   display: flex;
   flex: 2;
+  overflow: hidden;
 }
 
 .square_date {
-  width: 100px;
-  height: 100px;
-  background: #ffa5a5;
+  width: 150px;
+  height: 150px;
+  //background: #ffa5a5;
+  //border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .square_day {
-
+  font-family: 'pretendard';
+  font-weight: 600;
+  font-size: 5rem;
 }
 
 .square_day_mini {
+  font-family: 'pretendard';
+  font-weight: 500;
+  font-size: 1rem;
+}
 
+.square_todo_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+}
+
+.square_todo_box {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  //background: red;
+  padding: 0.75rem 0;
+}
+
+.square_todo_text {
+  font-family: 'pretendard';
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.square_todo_time {
+  font-family: 'pretendard';
+  font-weight: 400;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
 }
 
 @media all and (max-width: 1023px) {

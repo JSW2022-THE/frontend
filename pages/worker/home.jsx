@@ -40,6 +40,24 @@ export default function WorkerHome() {
                     금요일
                 </div>
             </div>
+            <div className={styles.square_todo_container}>
+                <div className={styles.square_todo_box}>
+                    <div className={styles.square_todo_text}>
+                        태진떡볶이 출근
+                    </div>
+                    <div className={styles.square_todo_time}>
+                        오후 2시 ~ 오후 5시
+                    </div>
+                </div>
+                {/*<div className={styles.square_todo_box}>*/}
+                {/*    <div className={styles.square_todo_text}>*/}
+                {/*        태진떡볶이 출근*/}
+                {/*    </div>*/}
+                {/*    <div className={styles.square_todo_time}>*/}
+                {/*        오후 2시 ~ 오후 5시*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+            </div>
         </div>
 
       <BottomNavigation isWorker={true} />
