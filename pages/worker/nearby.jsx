@@ -38,6 +38,19 @@ export default function WorkerNearBy() {
             var me = document.getElementById("kakaomap_me")
             var width = me.clientWidth;
             me.style.left = `-${width/2}px`;
+
+            // 원 그리기
+            var circle = new kakao.maps.Circle({
+              center : new kakao.maps.LatLng(lat, lon),  // 원의 중심좌표 입니다
+              radius: 1000, // 미터 단위의 원의 반지름입니다
+              strokeWeight: 2, // 선의 두께입니다
+              strokeColor: 'rgba(33,128,0,0.7)', // 선의 색깔입니다
+              strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+              strokeStyle: 'solid', // 선의 스타일 입니다
+              fillColor: 'rgb(204,255,179)', // 채우기 색깔입니다
+              fillOpacity: 0.35  // 채우기 불투명도 입니다
+            });
+            circle.setMap(map);
           });
         } else {
           var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
@@ -89,6 +102,57 @@ export default function WorkerNearBy() {
           <div id="KakaoMap" className={styles.map} />
         </div>
       </div>
+      <div className={styles.list}>
+        <div className={styles.list_title}>
+          <div className={styles.list_title_text}>
+            내 주변 🧭
+          </div>
+        </div>
+        <div className={styles.list_title_guard} />
+        <div className={styles.list_store_container}>
+          <div className={styles.list_store_box}>
+            <div className={styles.list_store_image}></div>
+            <div className={styles.list_store_info_box}>
+              <div className={styles.list_store_name}>상당고등학교</div>
+              <div className={styles.list_store_address}>충청북도 청주시 상당구 월평로238번길 3-10</div>
+              <div className={styles.list_store_sectors}>일반음식점</div>
+            </div>
+          </div>
+          <div className={styles.list_store_box}>
+            <div className={styles.list_store_image}></div>
+            <div className={styles.list_store_info_box}>
+              <div className={styles.list_store_name}>상당고등학교</div>
+              <div className={styles.list_store_address}>충청북도 청주시 상당구 월평로238번길 3-10</div>
+              <div className={styles.list_store_sectors}>일반음식점</div>
+            </div>
+          </div>
+          <div className={styles.list_store_box}>
+            <div className={styles.list_store_image}></div>
+            <div className={styles.list_store_info_box}>
+              <div className={styles.list_store_name}>상당고등학교</div>
+              <div className={styles.list_store_address}>충청북도 청주시 상당구 월평로238번길 3-10</div>
+              <div className={styles.list_store_sectors}>일반음식점</div>
+            </div>
+          </div>
+          <div className={styles.list_store_box}>
+            <div className={styles.list_store_image}></div>
+            <div className={styles.list_store_info_box}>
+              <div className={styles.list_store_name}>상당고등학교</div>
+              <div className={styles.list_store_address}>충청북도 청주시 상당구 월평로238번길 3-10</div>
+              <div className={styles.list_store_sectors}>일반음식점</div>
+            </div>
+          </div>
+          <div className={styles.list_store_box}>
+            <div className={styles.list_store_image}></div>
+            <div className={styles.list_store_info_box}>
+              <div className={styles.list_store_name}>상당고등학교</div>
+              <div className={styles.list_store_address}>충청북도 청주시 상당구 월평로238번길 3-10</div>
+              <div className={styles.list_store_sectors}>일반음식점</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <BottomNavigation isWorker={true} />
     </>
   );

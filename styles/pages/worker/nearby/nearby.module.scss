@@ -1,11 +1,11 @@
 
 .map {
-  position: relative;
   max-width: 1023px;
-  //width: calc(100vw * 0.9);
+  width: calc(100vw * 0.9);
   height: calc(((100vh - 120px) / 2) - 2rem);
   box-shadow: 0 7px 25px 0px rgba(150, 150, 150, 0.3);
   border-radius: 20px;
+  position: absolute;
 }
 
 .map_box {
@@ -17,6 +17,95 @@
   height: calc(((100vh - 120px) / 2) + 2rem);
 }
 
+.list {
+  max-width: 1023px;
+  width: calc(100vw * 0.9);
+  height: calc(((100vh - 120px) / 2) - 2rem);
+  margin-top: -2rem;
+  background: white;
+  border-radius: 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.list_title {
+  border-radius: 20px;
+  width: calc(100vw * 0.9);
+  position: fixed;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+.list_title_text {
+  font-family: 'pretendard';
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.list_title_guard {
+  height: calc(56px - 1.5rem);
+}
+
+.list_store_container {
+  width: 100%;
+  height: 80px;
+  //background: red;
+  margin-top: 0.75rem;
+}
+
+.list_store_box {
+  width: calc(100% - 20px);
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex: 2;
+}
+
+.list_store_image {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background: #e8e8e8;
+  border-radius: 15px;
+  top: 10px;
+  left: 10px;
+}
+
+.list_store_info_box {
+  position: relative;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.list_store_name {
+  font-family: 'pretendard';
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.list_store_address {
+  font-family: 'pretendard';
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: left;
+  color: #3d3d3d;
+  margin-top: 0.25rem;
+}
+.list_store_sectors {
+  font-family: 'pretendard';
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-align: left;
+  color: #5d5d5d;
+  margin-top: 0.25rem;
+}
+
 @media all and (max-width: 1023px) {
   .map {
     width: calc(100vw - 2rem);
@@ -24,5 +113,9 @@
   }
   .map_box {
     width: calc(100vw);
+  }
+  .list {
+    margin: auto;
+    margin-top: -2rem;
   }
 }
