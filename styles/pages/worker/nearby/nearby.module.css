@@ -1,7 +1,9 @@
+@charset "UTF-8";
+/* 중요 */
 .map {
   max-width: 1023px;
   width: 90vw;
-  height: calc((100vh - 120px) / 2 - 2rem);
+  height: calc((var(--vh, 1vh) * 100 - 120px) / 2 - 2rem);
   box-shadow: 0 7px 25px 0px rgba(150, 150, 150, 0.3);
   border-radius: 20px;
   position: absolute;
@@ -13,13 +15,13 @@
 }
 
 .map_container {
-  height: calc((100vh - 120px) / 2 + 2rem);
+  height: calc((var(--vh, 1vh) * 100 - 120px) / 2 + 2rem);
 }
 
 .list {
   max-width: 1023px;
   width: 90vw;
-  height: calc((100vh - 120px) / 2 - 2rem);
+  height: calc((var(--vh, 1vh) * 100 - 120px) / 2 - 2rem);
   margin-top: -2rem;
   background: white;
   border-radius: 20px;
@@ -30,7 +32,6 @@
   border-radius: 20px 20px 0 0;
   width: 90vw;
   max-width: 1023px;
-  position: fixed;
   padding: 1.25rem;
   background: white;
   z-index: 1;
@@ -41,10 +42,6 @@
   font-weight: 700;
   font-size: 1rem;
   text-align: left;
-}
-
-.list_title_guard {
-  height: 56px;
 }
 
 .list_store_group {

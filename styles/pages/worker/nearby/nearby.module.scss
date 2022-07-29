@@ -1,8 +1,11 @@
 
+/* 중요 */
+// 100vh 는 calc(var(--vh, 1vh) * 100) 로 바꿔 쓸 것.
+
 .map {
   max-width: 1023px;
   width: calc(100vw * 0.9);
-  height: calc(((100vh - 120px) / 2) - 2rem);
+  height: calc((((var(--vh, 1vh) * 100) - 120px) / 2) - 2rem);
   box-shadow: 0 7px 25px 0px rgba(150, 150, 150, 0.3);
   border-radius: 20px;
   position: absolute;
@@ -14,13 +17,13 @@
 }
 
 .map_container {
-  height: calc(((100vh - 120px) / 2) + 2rem);
+  height: calc((((var(--vh, 1vh) * 100) - 120px) / 2) + 2rem);
 }
 
 .list {
   max-width: 1023px;
   width: calc(100vw * 0.9);
-  height: calc(((100vh - 120px) / 2) - 2rem);
+  height: calc((((var(--vh, 1vh) * 100) - 120px) / 2) - 2rem);
   margin-top: -2rem;
   background: white;
   border-radius: 20px;
@@ -31,7 +34,7 @@
   border-radius: 20px 20px 0 0;
   width: calc(100vw * 0.9);
   max-width: 1023px;
-  position: fixed;
+  //position: fixed;
   padding: 1.25rem;
   background: white;
   z-index: 1;
@@ -46,7 +49,7 @@
 
 .list_title_guard {
   //height: calc(56px - 1.5rem);
-  height: 56px;
+  //height: 56px;
 }
 
 .list_store_group {

@@ -10,6 +10,8 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
+                    <script src="/css_error.js" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <link rel="stylesheet" as="style" crossOrigin="true"
                         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css" />
                 </Head>
