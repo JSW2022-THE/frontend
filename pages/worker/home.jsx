@@ -8,18 +8,18 @@ export default function WorkerHome() {
       <Header />
 
         <div className={styles.square_container}>
-            <div className={styles.square_box}>
-                <div className={styles.square_text_mini}>
+            <div className={styles.square_box} style={{background: 'linear-gradient(135deg, rgba(0,223,80,1) 0%, rgba(0,120,41,1) 100%)'}}>
+                <div className={styles.square_text_mini} style={{color: 'white'}}>
                     나의 근무 시간
                 </div>
-                <div className={styles.square_text_big}>
+                <div className={styles.square_text_big} style={{color: 'white'}}>
                     20
                 </div>
-                <div className={styles.square_text_mini}>
+                <div className={styles.square_text_mini} style={{color: 'white'}}>
                     시간
                 </div>
             </div>
-            <div className={styles.square_box}>
+            <div className={styles.square_box} style={{background: 'linear-gradient(135deg, rgba(254,240,16,1) 0%, rgba(156,255,107,1) 100%)'}}>
                 <div className={styles.square_text_mini}>
                     이번 달 예상 수익
                 </div>
