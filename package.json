@@ -39,6 +39,7 @@
     "react-loading-icons": "^1.1.0",
     "react-spring": "^9.5.0",
     "react-spring-bottom-sheet": "^3.4.1",
+    "socket.io-client": "^4.5.1",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.2"
   },

@@ -44,7 +44,7 @@ export default function BottomNavigation(props) {
       iconName: FaPlus,
       path: "/employer/knowledge",
     },
-    { id: 4, name: "채팅", iconName: IoChatbubble, path: "/employer/tools" },
+    { id: 4, name: "채팅", iconName: IoChatbubble, path: "/employer/chat" },
     {
       id: 5,
       name: "내 메뉴",
