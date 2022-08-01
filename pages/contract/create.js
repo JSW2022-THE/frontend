@@ -49,6 +49,7 @@ const Create = () => {
         )
         setWorkWeekText(
             <>
+                {/* eslint-disable-next-line react/no-unescaped-entities */}
                 - "주소정근로시간" 이라함은 근로자와 사용자가 정한 1주 동안 근로하는 근로시간을 말합니다.
                 <br/>
                 - 15세 이상 18세 미만 청소년의 근로시간은 1일에 7시간, 1주에 35시간을 초과하여 일할 수 없습니다. (「근로기준법」 제69조)
