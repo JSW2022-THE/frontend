@@ -80,7 +80,7 @@ export default function WorkerNearBy() {
 
     if(!router.isReady) return;
 
-  }, []);
+  }, [router.isReady]);
 
   const getLocation = () => {
     if(navigator.geolocation) {

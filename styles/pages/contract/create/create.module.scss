@@ -21,6 +21,7 @@
 
 .input_box {
   margin: auto 20px;
+  margin-bottom: 20px;
   background: white;
   border-radius: 15px;
   padding: 2rem;
@@ -32,4 +33,24 @@
   font-size: 1rem;
   text-align: left;
   color: black;
+}
+
+.info {
+  font-family: 'pretendard';
+  font-weight: 500;
+  color: black;
+}
+
+.menuItem {
+  font-family: 'pretendard';
+  color: black;
+}
+
+.moneyForm {
+  display: flex;
+  flex: 2;
+}
+
+.signCanvas {
+
 }
