@@ -334,7 +334,7 @@ const Create = () => {
                         <FormControl required>
                             <FormLabel focused={false} className={styles.menuItem}>사업주 서명</FormLabel>
                             <SignatureCanvas ref={signCanvas} penColor='black' canvasProps={{className: styles.signCanvas}} redrawOnResize clearOnResize={false}/>
-                            <Button onClick={()=>signCanvas.current.clear()} color='success' className={styles.replayButton} variant="outlined" startIcon={<ReplayIcon />}>
+                            <Button style={{marginTop: '0.5rem'}} onClick={()=>signCanvas.current.clear()} color='success' className={styles.replayButton} variant="outlined" startIcon={<ReplayIcon />}>
                                 서명 다시하기
                             </Button>
                         </FormControl>
