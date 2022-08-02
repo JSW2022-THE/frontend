@@ -11,7 +11,7 @@ import {
     Stack,
     TextField,
     Alert,
-    AlertTitle
+    AlertTitle, Button
 } from "@mui/material";
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import {useEffect, useRef, useState} from "react";
@@ -19,6 +19,8 @@ import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {ko} from "date-fns/locale"
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {useRouter} from "next/router";
+import SignatureCanvas from "react-signature-canvas";
+import ReplayIcon from '@mui/icons-material/Replay';
 
 const Create = () => {
 
@@ -32,6 +34,7 @@ const Create = () => {
     const [workTimeText, setWorkTimeText] = useState()
     const [workLocationText, setWorkLocationText] = useState()
     const router = useRouter()
+    const signCanvas = useRef()
 
     //INPUT_DATA
     const [formData, setFormData] = useState({
@@ -330,8 +333,14 @@ const Create = () => {
                         </FormControl>
                         <FormControl required>
                             <FormLabel focused={false} className={styles.menuItem}>사업주 서명</FormLabel>
-
+                            <SignatureCanvas ref={signCanvas} penColor='black' canvasProps={{className: styles.signCanvas}} redrawOnResize clearOnResize={false}/>
+                            <Button onClick={()=>signCanvas.current.clear()} color='success' className={styles.replayButton} variant="outlined" startIcon={<ReplayIcon />}>
+                                서명 다시하기
+                            </Button>
                         </FormControl>
+                        <Button color='success' className={styles.sendButton} variant="contained" size="large">
+                            근로계약서 작성완료 및 전송하기
+                        </Button>
                     </Stack>
                 </LocalizationProvider>
             </div>
