@@ -7,7 +7,6 @@ import {
     MenuItem,
     Radio,
     RadioGroup,
-    Select,
     Stack,
     TextField,
     Alert,
@@ -21,6 +20,7 @@ import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {useRouter} from "next/router";
 import SignatureCanvas from "react-signature-canvas";
 import ReplayIcon from '@mui/icons-material/Replay';
+import {LoadingButton} from "@mui/lab";
 
 const Create = () => {
 
@@ -35,10 +35,32 @@ const Create = () => {
     const [workLocationText, setWorkLocationText] = useState()
     const router = useRouter()
     const signCanvas = useRef()
+    const [sendButton, setSendButton] = useState(false)
 
     //INPUT_DATA
     const [formData, setFormData] = useState({
-
+        company_name: '',
+        ceo_name: '',
+        company_number: '',
+        contract_start_date: '',
+        contract_end_date: '',
+        work_location: '',
+        work_info: '',
+        work_week_time: '',
+        work_type: '',
+        work_start_time: '',
+        work_end_time: '',
+        wage_type: '',
+        wage_value: '',
+        bonus_percent: '',
+        wage_send_type: '',
+        insurance: {
+            goyong: false,
+            sanjae: false,
+            kookmin: false,
+            gungang: false,
+        },
+        sign_data_url: '',
     })
 
     useEffect(()=>{
@@ -115,6 +137,8 @@ const Create = () => {
                             InputProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             InputLabelProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             color='success'
+                            value={formData.company_name|| ''}
+                            onChange={(data)=> setFormData({...formData, company_name: data.target.value})}
                         />
                         <TextField
                             required
@@ -125,6 +149,8 @@ const Create = () => {
                             InputProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             InputLabelProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             color='success'
+                            value={formData.ceo_name|| ''}
+                            onChange={(data)=> setFormData({...formData, ceo_name: data.target.value})}
                         />
                         <TextField
                             required
@@ -135,12 +161,14 @@ const Create = () => {
                             InputProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             InputLabelProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             color='success'
+                            value={formData.company_number|| ''}
+                            onChange={(data)=> setFormData({...formData, company_number: data.target.value})}
                         />
                         <MobileDatePicker
                             label="계약 시작일"
                             inputFormat="yyyy년 MM월 dd일"
-                            value={value}
-                            onChange={handleChange}
+                            // value={value}
+                            // onChange={handleChange}
                             InputProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             renderInput={(params) => <TextField
                                 required
@@ -148,12 +176,12 @@ const Create = () => {
                                 variant="standard"
                                 InputLabelProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                                 {...params} />}
+                            value={formData.contract_start_date|| new Date()}
+                            onChange={(data)=> setFormData({...formData, contract_start_date: data})}
                         />
                         <MobileDatePicker
                             label="계약 종료일"
                             inputFormat="yyyy년 MM월 dd일"
-                            value={value}
-                            onChange={handleChange}
                             InputProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             renderInput={(params) => <TextField
                                 fullWidth
@@ -165,6 +193,9 @@ const Create = () => {
                                     className: styles.info
                                 }}
                             />}
+                            color='success'
+                            value={formData.contract_end_date|| new Date()}
+                            onChange={(data)=> setFormData({...formData, contract_end_date: data})}
                         />
                         <TextField
                             required
@@ -179,6 +210,8 @@ const Create = () => {
                             FormHelperTextProps={{
                                 className: styles.info
                             }}
+                            value={formData.work_location|| ''}
+                            onChange={(data)=> setFormData({...formData, work_location: data.target.value})}
                         />
                         <TextField
                             required
@@ -189,6 +222,8 @@ const Create = () => {
                             InputProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             InputLabelProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             color='success'
+                            value={formData.work_info|| ''}
+                            onChange={(data)=> setFormData({...formData, work_info: data.target.value})}
                         />
                         <TextField
                             required
@@ -207,6 +242,8 @@ const Create = () => {
                             FormHelperTextProps={{
                                 className: styles.info
                             }}
+                            value={formData.work_week_time|| ''}
+                            onChange={(data)=> setFormData({...formData, work_week_time: data.target.value})}
                         />
                         <TextField
                             select
@@ -220,6 +257,9 @@ const Create = () => {
                             color='success'
                             InputProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             InputLabelProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
+                            onChange={(data)=> {
+                                setFormData({...formData, work_type: data.target.value});
+                            }}
                         >
                             <MenuItem className={styles.menuItem} key={1} value='주 1회'>주 1회</MenuItem>
                             <MenuItem className={styles.menuItem} key={2} value='주 2회'>주 2회</MenuItem>
@@ -246,6 +286,8 @@ const Create = () => {
                             FormHelperTextProps={{
                                 className: styles.info
                             }}
+                            value={formData.work_start_time|| ''}
+                            onChange={(data)=> setFormData({...formData, work_start_time: data.target.value})}
                         >
                             { workTimeSelectMenuItem }
                         </TextField>
@@ -265,6 +307,8 @@ const Create = () => {
                             FormHelperTextProps={{
                                 className: styles.info
                             }}
+                            value={formData.work_end_time|| ''}
+                            onChange={(data)=> setFormData({...formData, work_end_time: data.target.value})}
                         >
                             { workTimeSelectMenuItem }
                         </TextField>
@@ -281,6 +325,8 @@ const Create = () => {
                                 InputProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                                 InputLabelProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                                 style={{width:'30%'}}
+                                value={formData.wage_type|| ''}
+                                onChange={(data)=> setFormData({...formData, wage_type: data.target.value})}
                             >
                                 <MenuItem key={1} value="월급">월급</MenuItem>
                                 <MenuItem key={2} value="일급">일급</MenuItem>
@@ -295,6 +341,8 @@ const Create = () => {
                                     endAdornment: <InputAdornment position="end"><div className={styles.info}>만원</div></InputAdornment>
                                 }}
                                 style={{width:'70%'}}
+                                value={formData.wage_value|| ''}
+                                onChange={(data)=> setFormData({...formData, wage_value: data.target.value})}
                             />
                         </FormGroup>
                         <TextField
@@ -309,8 +357,12 @@ const Create = () => {
                             }}
                             InputLabelProps={{ style: { fontFamily: 'pretendard', fontWeight: 500 } }}
                             color='success'
+                            value={formData.bonus_percent|| ''}
+                            onChange={(data)=> setFormData({...formData, bonus_percent: data.target.value})}
                         />
-                        <FormControl required>
+                        <FormControl
+                            required
+                            onChange={(data)=> setFormData({...formData, wage_send_type: data.target.value})}>
                             <FormLabel focused={false} className={styles.menuItem}>임금 지급방법</FormLabel>
                             <RadioGroup>
                                 <FormControlLabel value="근로자에게 직접지급" control={<Radio color="success" />} label={<div className={styles.menuItem}>근로자에게 직접지급</div>} />
@@ -320,10 +372,46 @@ const Create = () => {
                         <FormControl required>
                             <FormLabel focused={false} className={styles.menuItem}>사회보험적용여부</FormLabel>
                             <RadioGroup>
-                                <FormControlLabel value="고용보험" control={<Checkbox color="success" />} label={<div className={styles.menuItem}>고용보험</div>} />
-                                <FormControlLabel value="산재보험" control={<Checkbox color="success" />} label={<div className={styles.menuItem}>산재보험</div>} />
-                                <FormControlLabel value="국민연금" control={<Checkbox color="success" />} label={<div className={styles.menuItem}>국민연금</div>} />
-                                <FormControlLabel value="건강보험" control={<Checkbox color="success" />} label={<div className={styles.menuItem}>건강보험</div>} />
+                                <FormControlLabel
+                                    value="고용보험"
+                                    control={<Checkbox color="success" />}
+                                    label={<div className={styles.menuItem}>고용보험</div>}
+                                    onChange={(data)=>{
+                                        (formData.insurance.goyong) ?
+                                            setFormData({...formData, insurance: { goyong: false }}) :
+                                            setFormData({...formData, insurance: { goyong: true }})
+                                    }}
+                                />
+                                <FormControlLabel
+                                    value="산재보험"
+                                    control={<Checkbox color="success" />}
+                                    label={<div className={styles.menuItem}>산재보험</div>}
+                                    onChange={(data)=>{
+                                        (formData.insurance.sanjae) ?
+                                            setFormData({...formData, insurance: { sanjae: false }}) :
+                                            setFormData({...formData, insurance: { sanjae: true }})
+                                    }}
+                                />
+                                <FormControlLabel
+                                    value="국민연금"
+                                    control={<Checkbox color="success" />}
+                                    label={<div className={styles.menuItem}>국민연금</div>}
+                                    onChange={(data)=>{
+                                        (formData.insurance.kookmin) ?
+                                            setFormData({...formData, insurance: { kookmin: false }}) :
+                                            setFormData({...formData, insurance: { kookmin: true }})
+                                    }}
+                                />
+                                <FormControlLabel
+                                    value="건강보험"
+                                    control={<Checkbox color="success" />}
+                                    label={<div className={styles.menuItem}>건강보험</div>}
+                                    onChange={(data)=>{
+                                        (formData.insurance.gungang) ?
+                                            setFormData({...formData, insurance: { gungang: false }}) :
+                                            setFormData({...formData, insurance: { gungang: true }})
+                                    }}
+                                />
                                 <Alert severity="info" className={styles.menuItem}>
                                     <AlertTitle className={styles.info}>사회보험적용여부 안내</AlertTitle>
                                     근로일수, 근로시간에 관계없이 <span style={{fontWeight: 600}}>1개월 미만으로 근무하는 경우 국민연금과 건강보험은 가입이 제외</span>됩니다.
@@ -332,15 +420,26 @@ const Create = () => {
                             </RadioGroup>
                         </FormControl>
                         <FormControl required>
-                            <FormLabel focused={false} className={styles.menuItem}>사업주 서명</FormLabel>
+                            <FormLabel focused={false} style={{textAlign: 'center'}} className={styles.menuItem}>사업주 서명</FormLabel>
                             <SignatureCanvas ref={signCanvas} penColor='black' canvasProps={{className: styles.signCanvas}} redrawOnResize clearOnResize={false}/>
                             <Button style={{marginTop: '0.5rem'}} onClick={()=>signCanvas.current.clear()} color='success' className={styles.replayButton} variant="outlined" startIcon={<ReplayIcon />}>
                                 서명 다시하기
                             </Button>
                         </FormControl>
-                        <Button color='success' className={styles.sendButton} variant="contained" size="large">
-                            근로계약서 작성완료 및 전송하기
-                        </Button>
+                        <LoadingButton
+                            color='success'
+                            className={styles.sendButton}
+                            variant="contained"
+                            size="large"
+                            loading={sendButton}
+                            loadingPosition="center"
+                            onClick={()=>{
+                                setSendButton(true)
+                                setFormData({...formData, sign_data_url: signCanvas.current.getTrimmedCanvas().toDataURL('image/png')});
+                            }}
+                        >
+                            <strong>근로계약서 작성완료 및 전송하기</strong>
+                        </LoadingButton>
                     </Stack>
                 </LocalizationProvider>
             </div>
