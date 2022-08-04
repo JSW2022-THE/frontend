@@ -87,9 +87,7 @@ function NavItem(props) {
       }}
     >
       <div className={styles.menu_center}>
-        <div className={styles.menu_icon}>
-          <props.itemData.iconName />
-        </div>
+        <props.itemData.iconName className={styles.menu_icon} />
         <div className={styles.menu_name}>{props.itemData.name}</div>
       </div>
     </div>
