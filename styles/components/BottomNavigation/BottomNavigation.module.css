@@ -29,7 +29,7 @@
   height: 50px;
   margin: auto;
   border-radius: 10px;
-  text-align: center;
+  align-items: center;
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -43,13 +43,14 @@
   flex: 2;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 50px;
+  width: 50px;
 }
 
 .menu_icon {
   height: 25px;
   font-size: 1.35rem;
-  width: 100%;
 }
 
 .menu_name {
