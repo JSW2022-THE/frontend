@@ -46,12 +46,13 @@
     "styled-reset": "^4.4.2"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.7",
+    "autoprefixer": "^10.4.8",
     "eslint": "8.19.0",
     "eslint-config-next": "12.2.1",
     "postcss": "^8.4.14",
     "postcss-fail-on-warn": "^0.2.1",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-scss": "^4.0.4"
+    "postcss-scss": "^4.0.4",
+    "tailwindcss": "^3.1.7"
   }
 }
