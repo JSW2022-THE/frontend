@@ -61,6 +61,12 @@ export default function Callback() {
                         } else {
                             // 홈으로 이동
                             console.log('동의 함=> 기본정보 다 채움')
+                            if(typeof window != undefined) {
+                                localStorage.setItem('user_info', JSON.stringify({
+                                    uuid: r.data.uuid,
+                                    name: r.data.name
+                                }))
+                            }
                             router.push('/')
                         }
                     })
@@ -267,6 +273,13 @@ export default function Callback() {
                         })
                             .then(r=>{
                                 if(r.data.status == 'success') {
+                                    console.log(r.data)
+                                    if(typeof window != undefined) {
+                                        localStorage.setItem('user_info', JSON.stringify({
+                                            uuid: r.data.user_info.uuid,
+                                            name: r.data.user_info.name
+                                        }))
+                                    }
                                     setResultSheet(true)
                                     setTimeout(()=>router.push('/'), 3000)
                                 } else {
