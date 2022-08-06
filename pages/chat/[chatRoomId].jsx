@@ -7,6 +7,7 @@ import { FaUserCircle, FaCircle } from "react-icons/fa";
 import { CircularProgress } from "@mui/material";
 
 import classNames from "classnames";
+import axios from "axios";
 
 export default function ChatRoom() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function ChatRoom() {
   const textareaRef = useRef();
   const [textareaValue, setTextareaValue] = useState("");
 
-  const [loggedinUser, setLoggedinUser] = useState({ user: null, uuid: null });
+  const [loggedinUserUUID, setLoggedinUserUUID] = useState("");
 
   const [connected, setConnected] = useState(false);
   const [onLoading, setOnLoading] = useState(true);
@@ -42,7 +43,6 @@ export default function ChatRoom() {
       socket.on("msgSend", (_data) => {
         setChatData((current) => [...current, _data]);
       });
-      console.log(loggedinUser);
     }
   }, [router.isReady]);
 
@@ -51,15 +51,20 @@ export default function ChatRoom() {
   }, [chatData]);
 
   useEffect(() => {
-    const localStorageUserData = JSON.parse(
-      window.localStorage.getItem("user_info")
-    );
-    if (localStorageUserData) {
-      setLoggedinUser(localStorageUserData);
-    } else {
-      alert("유저 정보 불러오기 실패");
-      router.push("/auth/login");
-    }
+    axios({
+      method: "GET",
+      url: "http://localhost:2000/api/auth/getLoggedInUserUUID",
+      withCredentials: true,
+    })
+      .then((res) => {
+        console.log(res.data);
+        setLoggedinUserUUID(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.response.data.message);
+        router.push("/auth/login");
+      });
   }, []);
 
   //채팅 전송 로직
@@ -67,7 +72,7 @@ export default function ChatRoom() {
     socket.emit("msgSend", {
       room_id: roomId,
       msg: textareaValue,
-      sender_id: loggedinUser.uuid,
+      sender_id: loggedinUserUUID,
     });
     setTextareaValue("");
   };
@@ -122,7 +127,7 @@ export default function ChatRoom() {
               key={_data.chat_id}
               className={classNames(
                 "flex w-full  py-[5px] px-5",
-                _data.sender_id === loggedinUser.uuid
+                _data.sender_id === loggedinUserUUID
                   ? "justify-end"
                   : "justify-start"
               )}
@@ -130,7 +135,7 @@ export default function ChatRoom() {
               <pre
                 className={classNames(
                   "w-fit px-4 py-[6px]  text-lg rounded-2xl",
-                  _data.sender_id === loggedinUser.uuid
+                  _data.sender_id === loggedinUserUUID
                     ? " bg-green-400 text-white"
                     : "bg-gray-200"
                 )}
