@@ -4,19 +4,23 @@ import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import { IoSend } from "react-icons/io5";
 import { FaUserCircle, FaCircle } from "react-icons/fa";
+import { CircularProgress } from "@mui/material";
 
 import classNames from "classnames";
 
 export default function ChatRoom() {
   const router = useRouter();
-  const socket = io("localhost:2000");
+  const socket = io("10.0.74.11:2000");
   const roomId = router.query.chatRoomId;
-  const [loggedinUser, setLoggedinUser] = useState();
+
   const [chatData, setChatData] = useState([]);
   const textareaRef = useRef();
   const [textareaValue, setTextareaValue] = useState("");
 
+  const [loggedinUser, setLoggedinUser] = useState({ user: null, uuid: null });
+
   const [connected, setConnected] = useState(false);
+  const [onLoading, setOnLoading] = useState(true);
   useEffect(() => {
     if (router.isReady) {
       //소켓에 연결되었을때
@@ -31,6 +35,7 @@ export default function ChatRoom() {
       //소켓 연결후 기존 채팅 데이터 로드
       socket.on("getChatData", (_data) => {
         setChatData(_data);
+        setOnLoading(false);
         window.scrollTo(0, document.body.scrollHeight);
       });
       //다른 소켓으로 부터 채팅을 받아올때
@@ -46,7 +51,15 @@ export default function ChatRoom() {
   }, [chatData]);
 
   useEffect(() => {
-    setLoggedinUser(JSON.parse(window.localStorage.getItem("user_info")));
+    const localStorageUserData = JSON.parse(
+      window.localStorage.getItem("user_info")
+    );
+    if (localStorageUserData) {
+      setLoggedinUser(localStorageUserData);
+    } else {
+      alert("유저 정보 불러오기 실패");
+      router.push("/auth/login");
+    }
   }, []);
 
   //채팅 전송 로직
@@ -61,6 +74,33 @@ export default function ChatRoom() {
 
   return (
     <div className="font-pretendard">
+      {onLoading ? (
+        <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center backdrop-blur-sm">
+          <div className="flex flex-col items-center justify-between h-32">
+            <CircularProgress
+              size="80px"
+              className=""
+              style={{ color: "#86efac" }}
+            />
+            <p className="font-semibold">채팅을 불러오는 중...</p>
+          </div>
+        </div>
+      ) : null}
+      {!onLoading && !connected ? (
+        <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center backdrop-blur-sm">
+          <div className="flex flex-col items-center justify-between h-32">
+            <CircularProgress
+              size="80px"
+              className=""
+              style={{ color: "#86efac" }}
+            />
+            <div className="flex flex-col items-center">
+              <p className="font-semibold">네트워크 연결이 끊어졌습니다...</p>
+              <p className="mt-1 font-semibold">연결 재시도 중...</p>
+            </div>
+          </div>
+        </div>
+      ) : null}
       <header className="fixed top-0 left-0 flex items-center w-full h-16 px-12 bg-white">
         <div className="flex mt-1">
           <FaUserCircle className="w-8 h-8 text-gray-300" />
