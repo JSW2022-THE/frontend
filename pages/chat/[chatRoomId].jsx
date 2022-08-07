@@ -10,28 +10,57 @@ import classNames from "classnames";
 import axios from "axios";
 
 export default function ChatRoom() {
-  const [socket, setSocket] = useState();
   const router = useRouter();
 
-  const roomId = router.query.chatRoomId;
+  const [roomId, setRoomId] = useState();
 
   const [chatData, setChatData] = useState([]);
   const textareaRef = useRef();
   const [textareaValue, setTextareaValue] = useState("");
 
-  const [loggedinUserUUID, setLoggedinUserUUID] = useState("");
+  const [userUuid, setUserUuid] = useState();
 
   const [connected, setConnected] = useState(false);
   const [onLoading, setOnLoading] = useState(true);
+
+  // next js 의 라우터가 ready 되었을 때 roomId Set
   useEffect(() => {
     if (router.isReady) {
-      //setSocket(_socket);
-      //소켓에 연결되었을때
+      setRoomId(router.query.chatRoomId);
+    }
+  }, [router.isReady]);
+
+  // roomId가 존재한다는 것은 router 가 ready 되었다는 뜻 이므로, userUuid를 api GET
+  useEffect(() => {
+    if (roomId) {
+      axios({
+        method: "GET",
+        url: "http://localhost:2000/api/auth/getLoggedInUserUUID",
+        withCredentials: true,
+      })
+        .then((res) => {
+          console.log(res.data);
+          setUserUuid(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err.response.data.message);
+          router.push("/auth/login");
+        });
+    }
+  }, [roomId]);
+
+  //userUuid 가 준비되었을 때 이제 소켓연결 시작, 소켓에 대한 코드들
+  useEffect(() => {
+    if (userUuid) {
+      const socket = io("10.0.74.11:2000");
+
       socket.on("connect", () => {
+        console.log("socket on ready");
         setConnected(true);
         socket.emit("joinRoom", {
           room_id: roomId,
-          logged_in_user: loggedinUserUUID,
+          user_uuid: userUuid,
         });
       });
       //소켓에서 연결이 끊어졌을때
@@ -54,38 +83,19 @@ export default function ChatRoom() {
         router.back();
       });
     }
-  }, [router.isReady]);
+  }, [userUuid]);
 
+  //chatData State에 메세지가 변동(ex.메세지 도착)이 있을때 마다 스크롤을 하단으로.
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [chatData]);
-
-  useEffect(() => {
-    const _socket = io("10.0.74.11:2000");
-    setSocket(_socket);
-
-    axios({
-      method: "GET",
-      url: "http://localhost:2000/api/auth/getLoggedInUserUUID",
-      withCredentials: true,
-    })
-      .then((res) => {
-        console.log(res.data);
-        setLoggedinUserUUID(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err.response.data.message);
-        router.push("/auth/login");
-      });
-  }, []);
 
   //채팅 전송 로직
   const sendMessage = () => {
     socket.emit("msgSend", {
       room_id: roomId,
       msg: textareaValue,
-      sender_id: loggedinUserUUID,
+      sender_id: userUuid,
     });
     setTextareaValue("");
   };
@@ -123,7 +133,7 @@ export default function ChatRoom() {
         <div className="flex mt-1">
           <FaUserCircle className="w-8 h-8 text-gray-300" />
           <div className="ml-3 ">
-            <h1 className="font-semibold ">이름이 들어갈 위치</h1>
+            <h1 className="font-semibold ">이름이 들어갈 위치(props)</h1>
             <div className="flex items-center mt-[1px]">
               <FaCircle className="w-3 h-3 text-green-300" />
               <p className="px-1 text-sm font-light text-gray-400">
@@ -140,15 +150,13 @@ export default function ChatRoom() {
               key={_data.chat_id}
               className={classNames(
                 "flex w-full  py-[5px] px-5",
-                _data.sender_id === loggedinUserUUID
-                  ? "justify-end"
-                  : "justify-start"
+                _data.sender_id === userUuid ? "justify-end" : "justify-start"
               )}
             >
               <pre
                 className={classNames(
                   "w-fit px-4 py-[6px]  text-lg rounded-2xl",
-                  _data.sender_id === loggedinUserUUID
+                  _data.sender_id === userUuid
                     ? " bg-green-400 text-white"
                     : "bg-gray-200"
                 )}
