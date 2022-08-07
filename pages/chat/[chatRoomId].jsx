@@ -8,6 +8,7 @@ import { CircularProgress } from "@mui/material";
 
 import classNames from "classnames";
 import axios from "axios";
+let socket;
 
 export default function ChatRoom() {
   const router = useRouter();
@@ -39,7 +40,6 @@ export default function ChatRoom() {
         withCredentials: true,
       })
         .then((res) => {
-          console.log(res.data);
           setUserUuid(res.data);
         })
         .catch((err) => {
@@ -53,10 +53,9 @@ export default function ChatRoom() {
   //userUuid 가 준비되었을 때 이제 소켓연결 시작, 소켓에 대한 코드들
   useEffect(() => {
     if (userUuid) {
-      const socket = io("10.0.74.11:2000");
+      socket = io("10.0.74.11:2000");
 
       socket.on("connect", () => {
-        console.log("socket on ready");
         setConnected(true);
         socket.emit("joinRoom", {
           room_id: roomId,
@@ -85,11 +84,6 @@ export default function ChatRoom() {
     }
   }, [userUuid]);
 
-  //chatData State에 메세지가 변동(ex.메세지 도착)이 있을때 마다 스크롤을 하단으로.
-  useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight);
-  }, [chatData]);
-
   //채팅 전송 로직
   const sendMessage = () => {
     socket.emit("msgSend", {
@@ -99,6 +93,10 @@ export default function ChatRoom() {
     });
     setTextareaValue("");
   };
+  //chatData State에 메세지가 변동(ex.메세지 도착)이 있을때 마다 스크롤을 하단으로.
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, [chatData]);
 
   return (
     <div className="font-pretendard">
