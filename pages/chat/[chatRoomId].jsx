@@ -10,8 +10,9 @@ import classNames from "classnames";
 import axios from "axios";
 
 export default function ChatRoom() {
+  const [socket, setSocket] = useState();
   const router = useRouter();
-  const socket = io("10.0.74.11:2000");
+
   const roomId = router.query.chatRoomId;
 
   const [chatData, setChatData] = useState([]);
@@ -24,10 +25,14 @@ export default function ChatRoom() {
   const [onLoading, setOnLoading] = useState(true);
   useEffect(() => {
     if (router.isReady) {
+      //setSocket(_socket);
       //소켓에 연결되었을때
       socket.on("connect", () => {
         setConnected(true);
-        socket.emit("joinRoom", roomId);
+        socket.emit("joinRoom", {
+          room_id: roomId,
+          logged_in_user: loggedinUserUUID,
+        });
       });
       //소켓에서 연결이 끊어졌을때
       socket.on("disconnect", () => {
@@ -43,6 +48,11 @@ export default function ChatRoom() {
       socket.on("msgSend", (_data) => {
         setChatData((current) => [...current, _data]);
       });
+
+      socket.on("errorHandler", (_err) => {
+        alert(_err.message);
+        router.back();
+      });
     }
   }, [router.isReady]);
 
@@ -51,6 +61,9 @@ export default function ChatRoom() {
   }, [chatData]);
 
   useEffect(() => {
+    const _socket = io("10.0.74.11:2000");
+    setSocket(_socket);
+
     axios({
       method: "GET",
       url: "http://localhost:2000/api/auth/getLoggedInUserUUID",
@@ -120,7 +133,7 @@ export default function ChatRoom() {
           </div>
         </div>
       </header>
-      <div className="w-full h-full pb-16 overflow-auto ">
+      <div className="w-full h-full pt-20 pb-16 overflow-auto ">
         {chatData.map((_data) => {
           return (
             <div
