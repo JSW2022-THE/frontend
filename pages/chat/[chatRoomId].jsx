@@ -6,6 +6,9 @@ import { IoSend } from "react-icons/io5";
 import { FaUserCircle, FaCircle } from "react-icons/fa";
 import { CircularProgress } from "@mui/material";
 
+import moment from "moment";
+import "moment/locale/ko";
+
 import classNames from "classnames";
 import axios from "axios";
 let socket;
@@ -24,6 +27,9 @@ export default function ChatRoom() {
   const [connected, setConnected] = useState(false);
   const [onLoading, setOnLoading] = useState(true);
 
+  const [isOnline, setIsOnline] = useState(false);
+  const [lastOnline, setLastOnline] = useState(null);
+
   // next js 의 라우터가 ready 되었을 때 roomId Set
   useEffect(() => {
     if (router.isReady) {
@@ -41,6 +47,21 @@ export default function ChatRoom() {
       })
         .then((res) => {
           setUserUuid(res.data);
+          setInterval(() => {
+            axios({
+              method: "POST",
+              url: "http://localhost:2000/api/chat/getChatRoomOnlineStatusByUUID",
+              withCredentials: true,
+              data: { user_uuid: res.data, room_id: roomId },
+            })
+              .then((res) => {
+                setIsOnline(res.data.data[0].is_online);
+                setLastOnline(res.data.data[0].last_online);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }, 1000);
         })
         .catch((err) => {
           console.log(err);
@@ -53,7 +74,7 @@ export default function ChatRoom() {
   //userUuid 가 준비되었을 때 이제 소켓연결 시작, 소켓에 대한 코드들
   useEffect(() => {
     if (userUuid) {
-      socket = io("10.0.74.11:2000");
+      socket = io("localhost:2000");
 
       socket.on("connect", () => {
         setConnected(true);
@@ -128,16 +149,23 @@ export default function ChatRoom() {
         </div>
       ) : null}
       <header className="fixed top-0 left-0 flex items-center w-full h-16 px-12 bg-white">
-        <div className="flex mt-1">
+        <div className="flex items-center h-full ">
           <FaUserCircle className="w-8 h-8 text-gray-300" />
-          <div className="ml-3 ">
+          <div className="flex flex-col justify-between h-full py-4 ml-3">
             <h1 className="font-semibold ">이름이 들어갈 위치(props)</h1>
-            <div className="flex items-center mt-[1px]">
-              <FaCircle className="w-3 h-3 text-green-300" />
-              <p className="px-1 text-sm font-light text-gray-400">
-                현재 접속 중
+            {isOnline ? (
+              <div className="flex items-center ">
+                <FaCircle className="w-2 h-2 text-green-300" />
+                <p className="px-1 text-sm font-light text-gray-400">
+                  현재 접속 중
+                </p>
+              </div>
+            ) : (
+              <p className="text-sm font-light text-gray-400">
+                최근 접속 :{" "}
+                {lastOnline ? moment(lastOnline).fromNow() : "정보없음"}
               </p>
-            </div>
+            )}
           </div>
         </div>
       </header>

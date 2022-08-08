@@ -6,8 +6,7 @@ import Head from "next/head";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@mui/styles";
 import { useEffect } from "react";
-import axios from "axios";
-import { io } from "socket.io-client";
+import { onlineChecker } from "../modules/socket/OnlineChecker";
 
 function MyApp({ Component, pageProps }) {
   const THEME = createTheme({
@@ -21,23 +20,9 @@ function MyApp({ Component, pageProps }) {
   });
 
   useEffect(() => {
-    axios({
-      method: "GET",
-      url: "http://localhost:2000/api/auth/getLoggedInUserUUID",
-      withCredentials: true,
-    })
-      .then((res) => {
-        const userUuid = res.data;
-        const socket = io("http://localhost:2000");
-
-        socket.on("connect", () => {
-          socket.emit("onlineChecker", userUuid);
-        });
-      })
-      .catch((err) => {
-        console.log("로그인이 안 되어 있는 상태임");
-      });
+    onlineChecker();
   }, []);
+
   return (
     <>
       <Reset />

@@ -10,7 +10,8 @@ import 'react-spring-bottom-sheet/dist/style.css'
 import {Checkbox, FormControlLabel, FormGroup, Stack, TextField} from "@mui/material";
 import classNames from "classnames";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import {DesktopDatePicker} from "@mui/x-date-pickers";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
+import { onlineChecker } from "../../modules/socket/OnlineChecker";
 
 export default function Callback() {
     const router = useRouter()
@@ -67,6 +68,7 @@ export default function Callback() {
                                     name: r.data.name
                                 }))
                             }
+                            onlineChecker(); //채팅룸에서 온라인 여부를 확인하기 위해서 호출
                             router.push('/')
                         }
                     })
@@ -280,6 +282,7 @@ export default function Callback() {
                                             name: r.data.user_info.name
                                         }))
                                     }
+                                    onlineChecker(); //채팅룸에서 온라인 여부를 확인하기 위해서 호출
                                     setResultSheet(true)
                                     setTimeout(()=>router.push('/'), 3000)
                                 } else {
