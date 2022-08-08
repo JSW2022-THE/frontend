@@ -11,7 +11,7 @@ import {Checkbox, FormControlLabel, FormGroup, Stack, TextField} from "@mui/mate
 import classNames from "classnames";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
-import { onlineChecker } from "../../modules/socket/OnlineChecker";
+import { onlineChecker } from "../../modules/socket/onlineChecker";
 
 export default function Callback() {
     const router = useRouter()

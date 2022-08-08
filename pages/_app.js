@@ -6,7 +6,7 @@ import Head from "next/head";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@mui/styles";
 import { useEffect } from "react";
-import { onlineChecker } from "../modules/socket/OnlineChecker";
+import { onlineChecker } from "../modules/socket/onlineChecker";
 
 function MyApp({ Component, pageProps }) {
   const THEME = createTheme({
