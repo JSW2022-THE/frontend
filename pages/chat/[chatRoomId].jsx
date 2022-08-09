@@ -28,7 +28,7 @@ export default function ChatRoom() {
   const [onLoading, setOnLoading] = useState(true);
 
   const [isOnline, setIsOnline] = useState(false);
-  const [lastOnline, setLastOnline] = useState(null);
+  const [lastOnlineFromNow, setLastOnlineFromNow] = useState(null);
 
   // next js 의 라우터가 ready 되었을 때 roomId Set
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function ChatRoom() {
             })
               .then((res) => {
                 setIsOnline(res.data.data[0].is_online);
-                setLastOnline(res.data.data[0].last_online);
+                setLastOnlineFromNow(moment(res.data.data[0].last_online).fromNow());
               })
               .catch((err) => {
                 console.log(err);
@@ -163,7 +163,7 @@ export default function ChatRoom() {
             ) : (
               <p className="text-sm font-light text-gray-400">
                 최근 접속 :{" "}
-                {lastOnline ? moment(lastOnline).fromNow() : "정보없음"}
+                {lastOnlineFromNow ? lastOnlineFromNow : "정보없음"}
               </p>
             )}
           </div>
