@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import { IoSend } from "react-icons/io5";
-import { FaUserCircle, FaCircle } from "react-icons/fa";
+import { FaUserCircle, FaCircle, FaChevronLeft } from "react-icons/fa";
 import { CircularProgress } from "@mui/material";
 
 import moment from "moment";
@@ -50,13 +50,15 @@ export default function ChatRoom() {
           setInterval(() => {
             axios({
               method: "POST",
-              url: "http://localhost:2000/api/chat/getChatRoomOnlineStatusByUUID",
+              url: "http://localhost:2000/api/chat/getChatRoomOnlineStatus",
               withCredentials: true,
-              data: { user_uuid: res.data, room_id: roomId },
+              data: { room_id: roomId },
             })
               .then((res) => {
                 setIsOnline(res.data.data[0].is_online);
-                setLastOnlineFromNow(moment(res.data.data[0].last_online).fromNow());
+                setLastOnlineFromNow(
+                  moment(res.data.data[0].last_online).fromNow()
+                );
               })
               .catch((err) => {
                 console.log(err);
@@ -148,8 +150,14 @@ export default function ChatRoom() {
           </div>
         </div>
       ) : null}
-      <header className="fixed top-0 left-0 flex items-center w-full h-16 px-12 bg-white">
+      <header className="fixed top-0 left-0 flex items-center w-full h-16 bg-white">
         <div className="flex items-center h-full ">
+          <FaChevronLeft
+            onClick={() => {
+              router.back();
+            }}
+            className="w-6 h-6 mx-2 text-gray-500 cursor-pointer"
+          />
           <FaUserCircle className="w-8 h-8 text-gray-300" />
           <div className="flex flex-col justify-between h-full py-4 ml-3">
             <h1 className="font-semibold ">이름이 들어갈 위치(props)</h1>
@@ -162,8 +170,7 @@ export default function ChatRoom() {
               </div>
             ) : (
               <p className="text-sm font-light text-gray-400">
-                최근 접속 :{" "}
-                {lastOnlineFromNow ? lastOnlineFromNow : "정보없음"}
+                최근 접속 : {lastOnlineFromNow ? lastOnlineFromNow : "정보없음"}
               </p>
             )}
           </div>
