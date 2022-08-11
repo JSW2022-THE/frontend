@@ -10,6 +10,7 @@ export const onlineChecker = () => {
     .then((res) => {
       const userUuid = res.data;
       const socket = io("http://localhost:2000");
+      encrypt(process.env.NEXT_PUBLIC_SOCKET_SECRET)(socket);
 
       socket.on("connect", () => {
         socket.emit("onlineChecker", userUuid);

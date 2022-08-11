@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
+const encrypt = require("socket.io-encrypt");
 import { IoSend } from "react-icons/io5";
 import { FaUserCircle, FaCircle, FaChevronLeft } from "react-icons/fa";
 import { CircularProgress } from "@mui/material";
@@ -32,13 +33,12 @@ export default function ChatRoom() {
   const [isOnline, setIsOnline] = useState(false);
   const [lastOnlineFromNow, setLastOnlineFromNow] = useState(null);
 
-
   useEffect(() => {
     return () => {
       //ChatRoom Unmount시 인터벌 Clear
       clearInterval(onlineChecker);
     };
-  }, []); 
+  }, []);
 
   // next js 의 라우터가 ready 되었을 때 roomId Set
   useEffect(() => {
@@ -87,6 +87,7 @@ export default function ChatRoom() {
   useEffect(() => {
     if (userUuid) {
       socket = io("localhost:2000");
+      encrypt(process.env.NEXT_PUBLIC_SOCKET_SECRET)(socket);
 
       socket.on("connect", () => {
         setConnected(true);
