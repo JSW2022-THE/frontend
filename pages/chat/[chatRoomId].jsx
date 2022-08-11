@@ -12,6 +12,8 @@ import "moment/locale/ko";
 import classNames from "classnames";
 import axios from "axios";
 let socket;
+//Interval Object
+let onlineChecker;
 
 export default function ChatRoom() {
   const router = useRouter();
@@ -30,6 +32,14 @@ export default function ChatRoom() {
   const [isOnline, setIsOnline] = useState(false);
   const [lastOnlineFromNow, setLastOnlineFromNow] = useState(null);
 
+
+  useEffect(() => {
+    return () => {
+      //ChatRoom Unmount시 인터벌 Clear
+      clearInterval(onlineChecker);
+    };
+  }, []); 
+
   // next js 의 라우터가 ready 되었을 때 roomId Set
   useEffect(() => {
     if (router.isReady) {
@@ -47,7 +57,7 @@ export default function ChatRoom() {
       })
         .then((res) => {
           setUserUuid(res.data);
-          setInterval(() => {
+          onlineChecker = setInterval(() => {
             axios({
               method: "POST",
               url: "http://localhost:2000/api/chat/getChatRoomOnlineStatus",
