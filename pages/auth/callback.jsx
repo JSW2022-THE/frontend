@@ -22,6 +22,7 @@ export default function Callback() {
     // };
     const [resultSheet, setResultSheet] = useState(false)
     const [name, setName] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
     const [termsAgree, setTermsAgree] = useState({ terms1: false, terms2: false })
     const [termsSheet, setTermsSheet] = useState(false)
     const [typeSheet, setTypeSheet] = useState(false)
@@ -33,6 +34,7 @@ export default function Callback() {
         name: '',
         dateOfBirth: null,
         type: '', // teenager 또는 adult
+        phone_number: '',
     })
     const [endButton, setEndButton] = useState('')
     useEffect(()=>{
@@ -236,6 +238,17 @@ export default function Callback() {
                                         onChange={(data)=>{
                                             setFormData({...formData, name: data.target.value})
                                         }} />
+                                    <TextField
+                                        helperText='휴대폰 번호를 입력해주세요.'
+                                        fullWidth
+                                        label="휴대폰 번호"
+                                        id="fullWidth"
+                                        value={formData.phone_number}
+                                        // type="number"
+                                        onChange={(data)=>{
+                                            setFormData({...formData, phone_number: data.target.value})
+                                        }}
+                                    />
                                     <DesktopDatePicker
                                         label="생년월일"
                                         value={formData.dateOfBirth}
@@ -256,14 +269,14 @@ export default function Callback() {
                         </div>
                     </div>
                     <div className={styles.bottom_button} onClick={()=>{
-                        if (formData.dateOfBirth != 'Invalid Date' && name.length > 1) {
+                        if (formData.dateOfBirth != 'Invalid Date' && formData.name.length > 1 && `${formData.phone_number}`.length == 11) {
                             let birth = formData.dateOfBirth
                             let dateOfBirth = `${birth.getFullYear()}-${birth.getMonth()+1}-${birth.getDate()}`
-                            setFormData({ ...formData, dateOfBirth: dateOfBirth, name: name })
+                            setFormData({ ...formData, dateOfBirth: dateOfBirth, name: name, phone_number: phoneNumber })
                             setProfileSheet(false)
                             setEndButton('처리 중...')
                         } else {
-                            alert('이름 또는 생년월일을 입력해주세요.')
+                            alert('이름 또는 생년월일 또는 휴대폰 번호(숫자만 입력, 11자리)를 입력해주세요.')
                             return
                         }
                         axios({
