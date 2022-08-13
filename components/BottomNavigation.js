@@ -35,7 +35,7 @@ export default function BottomNavigation(props) {
       id: 2,
       name: "정산",
       iconName: GiReceiveMoney,
-      path: "/employer/nearby",
+      path: "/employer/calc-money",
     },
     {
       id: 3,
