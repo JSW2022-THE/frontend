@@ -1,5 +1,6 @@
 import axios from "axios";
 import { io } from "socket.io-client";
+const encrypt = require("socket.io-encrypt");
 
 export const onlineChecker = () => {
   axios({
@@ -17,6 +18,7 @@ export const onlineChecker = () => {
       });
     })
     .catch((err) => {
+      console.log(err);
       console.log("로그인이 안 되어 있는 상태임");
     });
 };
