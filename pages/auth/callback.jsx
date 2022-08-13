@@ -41,7 +41,7 @@ export default function Callback() {
         if(!router.isReady) return;
         axios({
             method: 'post',
-            url: NEXT_PUBLIC_BACKEND_URL+'/api/auth/login',
+            url: process.env.NEXT_PUBLIC_BACKEND_URL+'/api/auth/login',
             data: {
                 token: router.query.code
             },
@@ -51,7 +51,7 @@ export default function Callback() {
                 // 약관 동의했는지 확인
                 axios({
                     method: 'get',
-                    url: NEXT_PUBLIC_BACKEND_URL+'/api/auth/check/tos',
+                    url: process.env.UBLIC_BACKEND_URL+'/api/auth/check/tos',
                     withCredentials: true,
                 })
                     .then(r=>{
@@ -281,7 +281,7 @@ export default function Callback() {
                         }
                         axios({
                             method:'post',
-                            url: NEXT_PUBLIC_BACKEND_URL+'/api/auth/new/user',
+                            url: process.env.NEXT_PUBLIC_BACKEND_URL+'/api/auth/new/user',
                             data: formData,
                             responseType: 'json',
                             withCredentials: true,

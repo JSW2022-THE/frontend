@@ -439,7 +439,7 @@ const View = () => {
         // 1단계: 해당 계약서 uuid가 존재하는지 확인
         axios({
             method: 'get',
-            url: NEXT_PUBLIC_BACKEND_URL+'/api/contract/verify/uuid',
+            url: process.env.NEXT_PUBLIC_BACKEND_URL+'/api/contract/verify/uuid',
             headers: {
                 contract_uuid: contract_uuid
             },
@@ -518,7 +518,7 @@ const View = () => {
                                         code: code,
                                         contract_uuid: contract_uuid
                                     },
-                                    url: NEXT_PUBLIC_BACKEND_URL+'/api/contract/search'
+                                    url: process.env.NEXT_PUBLIC_BACKEND_URL+'/api/contract/search'
                                 })
                                     .then(r=>{
                                         if (!r.data.verify) {

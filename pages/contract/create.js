@@ -136,7 +136,7 @@ const Create = () => {
 
         axios({
             method: 'get',
-            url: NEXT_PUBLIC_BACKEND_URL+'/api/contract/verify',
+            url: process.env.NEXT_PUBLIC_BACKEND_URL+'/api/contract/verify',
             headers: {
                 contract_token: router.query.token
             },
@@ -630,7 +630,7 @@ const Create = () => {
                                     setFormData({...formData, sign_data_url: signCanvas.current.getTrimmedCanvas().toDataURL('image/png')})
                                     axios({
                                         method: 'post',
-                                        url: NEXT_PUBLIC_BACKEND_URL+'/api/contract/save',
+                                        url:process.env.NEXT_PUBLIC_BACKEND_URL+'/api/contract/save',
                                         data: formData,
                                         withCredentials: true,
                                     })
