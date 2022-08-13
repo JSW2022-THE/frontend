@@ -41,7 +41,7 @@ export default function BottomNavigation(props) {
       id: 3,
       name: "내 가게",
       iconName: FaStoreAlt,
-      path: "/employer/knowledge",
+      path: "/employer/mystore",
     },
     { id: 4, name: "채팅", iconName: FaComment, path: "/employer/chat" },
     {
