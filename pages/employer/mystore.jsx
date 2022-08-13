@@ -19,7 +19,7 @@ export default function EmployerMyStore() {
             <p className="text-sm font-semibold text-gray-400">지원자 {2}명</p>
           </div>
           <label
-            for="default-toggle"
+            htmlFor="default-toggle"
             className="relative inline-flex items-center cursor-pointer"
           >
             <input
