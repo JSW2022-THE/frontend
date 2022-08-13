@@ -12,7 +12,7 @@ export default function ChatList() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://localhost:2000/api/chat/getChatRooms",
+      url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/chat/getChatRooms",
       withCredentials: true,
     })
       .then((res) => {

@@ -4,12 +4,12 @@ import { io } from "socket.io-client";
 export const onlineChecker = () => {
   axios({
     method: "GET",
-    url: "http://localhost:2000/api/auth/getLoggedInUserUUID",
+    url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/auth/getLoggedInUserUUID",
     withCredentials: true,
   })
     .then((res) => {
       const userUuid = res.data;
-      const socket = io("http://localhost:2000");
+      const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL);
       encrypt(process.env.NEXT_PUBLIC_SOCKET_SECRET)(socket);
 
       socket.on("connect", () => {

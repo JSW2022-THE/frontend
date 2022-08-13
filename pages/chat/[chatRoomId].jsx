@@ -52,7 +52,8 @@ export default function ChatRoom() {
     if (roomId) {
       axios({
         method: "GET",
-        url: "http://localhost:2000/api/auth/getLoggedInUserUUID",
+        url:
+          process.env.NEXT_PUBLIC_BACKEND_URL + "/api/auth/getLoggedInUserUUID",
         withCredentials: true,
       })
         .then((res) => {
@@ -60,7 +61,9 @@ export default function ChatRoom() {
           onlineChecker = setInterval(() => {
             axios({
               method: "POST",
-              url: "http://localhost:2000/api/chat/getChatRoomOnlineStatus",
+              url:
+                process.env.NEXT_PUBLIC_BACKEND_URL +
+                "/api/chat/getChatRoomOnlineStatus",
               withCredentials: true,
               data: { room_id: roomId },
             })
@@ -86,7 +89,7 @@ export default function ChatRoom() {
   //userUuid 가 준비되었을 때 이제 소켓연결 시작, 소켓에 대한 코드들
   useEffect(() => {
     if (userUuid) {
-      socket = io("localhost:2000");
+      socket = io(process.env.NEXT_PUBLIC_BACKEND_URL);
       encrypt(process.env.NEXT_PUBLIC_SOCKET_SECRET)(socket);
 
       socket.on("connect", () => {
