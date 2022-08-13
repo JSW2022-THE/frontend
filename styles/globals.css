@@ -1,4 +1,4 @@
-@tailwind base;
+@tailwind base; /* Preflight */
 @tailwind components;
 @tailwind utilities;
 
