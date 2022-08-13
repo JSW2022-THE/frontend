@@ -1,3 +1,4 @@
+import BottomNavigation from "../../components/BottomNavigation";
 import {
   FaUserCircle,
   FaHeart,
@@ -65,6 +66,7 @@ export default function EmployerMyPage() {
           </div>
         </span>
       </section>
+      <BottomNavigation isWorker={false} />
     </div>
   );
 }
