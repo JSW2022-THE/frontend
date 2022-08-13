@@ -51,7 +51,7 @@ export default function Callback() {
                 // 약관 동의했는지 확인
                 axios({
                     method: 'get',
-                    url: process.env.UBLIC_BACKEND_URL+'/api/auth/check/tos',
+                    url: process.env.NEXT_PUBLIC_BACKEND_URL+'/api/auth/check/tos',
                     withCredentials: true,
                 })
                     .then(r=>{
