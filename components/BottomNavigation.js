@@ -5,10 +5,9 @@ import {
   IoCompassSharp,
   IoPersonSharp,
   IoBuildSharp,
-  IoSearch,
-  IoChatbubble,
 } from "react-icons/io5";
-import { FaPlus } from "react-icons/fa";
+import { FaStoreAlt, FaComment } from "react-icons/fa";
+import { GiReceiveMoney } from "react-icons/gi";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 
@@ -34,17 +33,17 @@ export default function BottomNavigation(props) {
     { id: 1, name: "홈", iconName: IoHomeSharp, path: "/employer/home" },
     {
       id: 2,
-      name: "빠른급구",
-      iconName: IoSearch,
+      name: "정산",
+      iconName: GiReceiveMoney,
       path: "/employer/nearby",
     },
     {
       id: 3,
-      name: "공고등록",
-      iconName: FaPlus,
+      name: "내 가게",
+      iconName: FaStoreAlt,
       path: "/employer/knowledge",
     },
-    { id: 4, name: "채팅", iconName: IoChatbubble, path: "/employer/chat" },
+    { id: 4, name: "채팅", iconName: FaComment, path: "/employer/chat" },
     {
       id: 5,
       name: "내 메뉴",

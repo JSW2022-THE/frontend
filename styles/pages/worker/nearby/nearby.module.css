@@ -15,6 +15,7 @@
   height: calc((var(--vh, 1vh) * 100 - 120px) / 2 + 2rem);
   width: 90vw;
   margin: 0;
+  margin-top: 12px;
 }
 
 .list {
@@ -87,7 +88,10 @@
 }
 
 .list_store_name {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   font-family: "pretendard";
   font-size: 1rem;
   font-weight: 600;
@@ -95,7 +99,10 @@
 }
 
 .list_store_address {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   font-family: "pretendard";
   font-size: 0.75rem;
   font-weight: 500;
@@ -105,7 +112,10 @@
 }
 
 .list_store_sectors {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   font-family: "pretendard";
   font-size: 0.75rem;
   font-weight: 400;
@@ -122,6 +132,4 @@
     margin: auto;
     margin-top: -2rem;
   }
-}
-
-/*# sourceMappingURL=nearby.module.css.map */
+}/*# sourceMappingURL=nearby.module.css.map */

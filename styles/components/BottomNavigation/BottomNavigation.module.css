@@ -18,12 +18,15 @@
 }
 
 .menu_box {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   margin: auto;
   border-radius: 10px;
   align-items: center;
@@ -32,7 +35,7 @@
 }
 
 .menu_active {
-  background: rgba(203, 203, 203, 0.3);
+  background: #f4f4f4;
 }
 
 .menu_center {
@@ -46,7 +49,7 @@
 }
 
 .menu_icon {
-  height: 25px;
+  height: 20px;
   font-size: 1.35rem;
 }
 
@@ -54,6 +57,8 @@
   font-family: "pretendard";
   font-weight: 500;
   font-size: 0.65rem;
+  color: #9b9b9b;
+  margin-top: 4px;
 }
 
 /* 태블릿 가로까지 */
@@ -66,6 +71,4 @@
     height: 60px;
     border-radius: 0;
   }
-}
-
-/*# sourceMappingURL=BottomNavigation.module.css.map */
+}/*# sourceMappingURL=BottomNavigation.module.css.map */
