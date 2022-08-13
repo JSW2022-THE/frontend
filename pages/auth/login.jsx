@@ -10,8 +10,7 @@ export default function Login() {
     const router = useRouter()
     const kakaoLoginClick = () =>{
         const REST_API_KEY = 'c91a830998b9123bba1465043c00c0cf'
-        const REDIRECT_URI = 'http://localhost:3000/auth/callback'
-        // const REDIRECT_URI = 'http://web.ptj.kr:3000/auth/callback'
+        const REDIRECT_URI = process.env.NODE_ENV == "development" ? "http://localhost:3000/auth/callback" : "https://28aed5b1.jsw2022.pages.dev//auth/callback";
         const url = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
         router.push(url)
     }
