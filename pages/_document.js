@@ -10,6 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel="manifest" href="/manifest.json" />
           <link
             href="/icons/favicon-16x16.png"
             rel="icon"
