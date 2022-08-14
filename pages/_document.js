@@ -10,11 +10,24 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/*
-            이거 땜에 오류남 수정좀.
-            <script src="/css_error.js" />
-            참고 링크 : https://nextjs.org/docs/messages/no-sync-scripts
-            */}
+          <link
+            href="/icons/favicon-16x16.png"
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+          />
+          <link
+            href="/icons/favicon-32x32.png"
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+          />
+          <link
+            href="/icons/favicon-96x96.png"
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+          />
           <link
             rel="stylesheet"
             as="style"
