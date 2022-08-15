@@ -14,6 +14,7 @@ import ChannelService from "../../modules/channelTalk/channelTalk";
 
 export default function EmployerMyPage() {
   useEffect(() => {
+    const channelTalk = new ChannelService();
     axios({
       method: "GET",
       url:
@@ -22,7 +23,7 @@ export default function EmployerMyPage() {
     })
       .then((res) => {
         const userData = res.data;
-        const channelTalk = new ChannelService();
+        //로그인이 되어 있을때 고객 정보랑 같이 채널톡 호출
         channelTalk.boot({
           pluginKey: process.env.NEXT_PUBLIC_CT_PLUGIN_KRY,
           memberId: userData.uuid,
@@ -35,6 +36,10 @@ export default function EmployerMyPage() {
       .catch((err) => {
         console.log(err);
         console.log("로그인이 안 되어 있는 상태임");
+        //로그인이 안되어 있을때 고객 정보 없이 채널톡 호출
+        channelTalk.boot({
+          pluginKey: process.env.NEXT_PUBLIC_CT_PLUGIN_KRY,
+        });
       });
 
     return () => {
