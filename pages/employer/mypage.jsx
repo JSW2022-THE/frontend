@@ -19,9 +19,9 @@ export default function EmployerMyPage() {
       pluginKey: process.env.NEXT_PUBLIC_CT_PLUGIN_KRY,
       memberId: "asdfksdafjldksf",
       profile: {
-        name: "김홍록", //fill with user name
-        mobileNumber: "01072115490", //fill with user phone number
-        email: "hlog2e@gmail.com",
+        name: "김김김", //fill with user name
+        mobileNumber: "01012345678", //fill with user phone number
+        email: "abc@naver.com",
       },
     });
     return () => {
