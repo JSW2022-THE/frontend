@@ -3,7 +3,7 @@
   "background_color": "#f4f4f4",
   "display": "standalone",
   "scope": ".",
-  "start_url": "/worker/home",
+  "start_url": "/pwa",
   "name": "GoodJob",
   "short_name": "GoodJob",
   "description": "2022 JSW-THE",

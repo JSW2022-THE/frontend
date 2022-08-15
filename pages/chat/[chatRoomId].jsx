@@ -53,11 +53,11 @@ export default function ChatRoom() {
       axios({
         method: "GET",
         url:
-          process.env.NEXT_PUBLIC_BACKEND_URL + "/api/auth/getLoggedInUserUUID",
+          process.env.NEXT_PUBLIC_BACKEND_URL + "/api/auth/getLoggedInUserInfo",
         withCredentials: true,
       })
         .then((res) => {
-          setUserUuid(res.data);
+          setUserUuid(res.data.uuid);
           onlineChecker = setInterval(() => {
             axios({
               method: "POST",
