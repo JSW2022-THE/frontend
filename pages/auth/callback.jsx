@@ -41,7 +41,6 @@ export default function Callback() {
         if(!router.isReady) return;
         axios({
             method: 'post',
-            headers: {'Access-Control-Allow-Origin':'https://jsw-api.hserver.kr'},
             url: process.env.NEXT_PUBLIC_BACKEND_URL+'/api/auth/login',
             data: {
                 token: router.query.code
