@@ -28,6 +28,16 @@ export default function PwaPage() {
 }
 
 function Login() {
+  const router = useRouter();
+  const kakaoLoginClick = () => {
+    const REST_API_KEY = "c91a830998b9123bba1465043c00c0cf";
+    const REDIRECT_URI =
+      process.env.NODE_ENV == "development"
+        ? "http://localhost:3000/auth/callback"
+        : "https://jsw2022.pages.dev/auth/callback";
+    const url = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
+    router.push(url);
+  };
   return (
     <div className=" font-pretendard">
       <section className="px-10 mt-24">
@@ -37,7 +47,11 @@ function Login() {
         <img src="/splash.svg" className="mt-24" />
       </section>
       <section className="fixed p-6 bottom-16">
-        <img src="/kakao_login.svg" className=" rounded-3xl" />
+        <img
+          src="/kakao_login.svg"
+          className=" rounded-3xl"
+          onClick={kakaoLoginClick}
+        />
       </section>
     </div>
   );
