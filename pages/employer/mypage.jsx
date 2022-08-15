@@ -8,8 +8,26 @@ import {
   FaUserCog,
   FaBullhorn,
 } from "react-icons/fa";
+import { useEffect } from "react";
+
+import ChannelService from "../../modules/channelTalk/channelTalk";
 
 export default function EmployerMyPage() {
+  useEffect(() => {
+    const channelTalk = new ChannelService();
+    channelTalk.boot({
+      pluginKey: process.env.NEXT_PUBLIC_CT_PLUGIN_KRY,
+      memberId: "asdfksdafjldksf",
+      profile: {
+        name: "김홍록", //fill with user name
+        mobileNumber: "01072115490", //fill with user phone number
+        email: "hlog2e@gmail.com",
+      },
+    });
+    return () => {
+      channelTalk.shutdown();
+    };
+  }, []);
   return (
     <div className="pb-24 font-pretendard">
       <header className="px-5 mt-12 mb-4">
@@ -38,29 +56,34 @@ export default function EmployerMyPage() {
       </section>
       <section className="px-6 mt-6 ">
         <span className="flex items-center justify-between px-4 py-2">
-          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center">
+          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer">
             <FaFileSignature className="w-6 h-6 ml-1" />
             <p className="text-[13px] font-semibold">근로계약서</p>
           </div>
-          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center">
+          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer">
             <FaHeart className="w-6 h-6 text-rose-600" />
             <p className="text-[13px] font-semibold">우리가게 리뷰</p>
           </div>
-          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center">
+          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer">
             <FaFileDownload className="w-6 h-6 " />
             <p className="text-[13px] font-semibold">이력서 보기</p>
           </div>
         </span>
         <span className="flex items-center justify-between px-4 py-2">
-          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center">
+          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer">
             <FaUserCog className="w-6 h-6 " />
             <p className="text-[13px] font-semibold">정보수정</p>
           </div>
-          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center">
+          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer">
             <FaBullhorn className="w-6 h-6 " />
             <p className="text-[13px] font-semibold">공지사항</p>
           </div>
-          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center">
+          <div
+            onClick={() => {
+              window.ChannelIO("showMessenger");
+            }}
+            className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer"
+          >
             <FaHeadset className="w-6 h-6 " />
             <p className="text-[13px] font-semibold">고객지원</p>
           </div>
