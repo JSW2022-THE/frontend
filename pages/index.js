@@ -46,10 +46,10 @@ function Login() {
         <h1 className="mt-1 text-4xl font-bold text-green-600">굿잡</h1>
         <img src="/splash.svg" className="mt-24" />
       </section>
-      <section className="fixed p-6 bottom-16">
+      <section className="fixed w-full max-w-[1024px] p-6 flex justify-center bottom-16">
         <img
           src="/kakao_login.svg"
-          className=" rounded-3xl"
+          className="rounded-3xl"
           onClick={kakaoLoginClick}
         />
       </section>
@@ -76,7 +76,7 @@ function SplashPage() {
         <h1 className="text-3xl font-semibold ">스마트한</h1>
         <h1 className="mt-1 text-3xl font-semibold">학생 구직 플랫폼</h1>
         <h1 className="mt-1 text-4xl font-bold text-green-600">굿잡</h1>
-        <img src="/splash.svg" className="mt-24" />
+        <img src="/splash.svg" className="mt-24 " />
       </section>
     </div>
   );
