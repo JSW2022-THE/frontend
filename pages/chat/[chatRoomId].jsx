@@ -202,7 +202,7 @@ export default function ChatRoom() {
             >
               <pre
                 className={classNames(
-                  "w-fit px-4 py-[6px]  text-lg rounded-2xl",
+                  "w-fit px-4 py-[6px] max-w-[270px] whitespace-pre-wrap break-all text-lg rounded-2xl",
                   _data.sender_id === userUuid
                     ? " bg-green-400 text-white"
                     : "bg-gray-200"
@@ -221,7 +221,7 @@ export default function ChatRoom() {
           onChange={(e) => {
             setTextareaValue(e.target.value);
           }}
-          className="w-full h-10 px-5 py-3 bg-gray-200 rounded-full resize-none focus:caret-blue-500 focus:outline-none "
+          className="w-full h-10 px-5 py-2 bg-gray-200 rounded-full resize-none focus:caret-blue-500 focus:outline-none "
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
