@@ -9,21 +9,34 @@ import {
   FaBullhorn,
 } from "react-icons/fa";
 import { useEffect } from "react";
-
+import axios from "axios";
 import ChannelService from "../../modules/channelTalk/channelTalk";
 
 export default function EmployerMyPage() {
   useEffect(() => {
-    const channelTalk = new ChannelService();
-    channelTalk.boot({
-      pluginKey: process.env.NEXT_PUBLIC_CT_PLUGIN_KRY,
-      memberId: "asdfksdafjldksf",
-      profile: {
-        name: "김김김", //fill with user name
-        mobileNumber: "01012345678", //fill with user phone number
-        email: "abc@naver.com",
-      },
-    });
+    axios({
+      method: "GET",
+      url:
+        process.env.NEXT_PUBLIC_BACKEND_URL + "/api/auth/getLoggedInUserInfo",
+      withCredentials: true,
+    })
+      .then((res) => {
+        const userData = res.data;
+        const channelTalk = new ChannelService();
+        channelTalk.boot({
+          pluginKey: process.env.NEXT_PUBLIC_CT_PLUGIN_KRY,
+          memberId: userData.uuid,
+          profile: {
+            name: userData.name,
+            mobileNumber: userData.phone_number,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("로그인이 안 되어 있는 상태임");
+      });
+
     return () => {
       channelTalk.shutdown();
     };
