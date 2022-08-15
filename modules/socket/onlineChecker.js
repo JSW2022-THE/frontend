@@ -5,11 +5,11 @@ const encrypt = require("socket.io-encrypt");
 export const onlineChecker = () => {
   axios({
     method: "GET",
-    url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/auth/getLoggedInUserUUID",
+    url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/auth/getLoggedInUserInfo",
     withCredentials: true,
   })
     .then((res) => {
-      const userUuid = res.data;
+      const userUuid = res.data.uuid;
       const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL);
       encrypt(process.env.NEXT_PUBLIC_SOCKET_SECRET)(socket);
 
