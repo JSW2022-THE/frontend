@@ -1,0 +1,44 @@
+.container {
+  width: 309px;
+  margin: auto;
+}
+
+#calc {
+  background: linear-gradient(130deg, rgb(33, 197, 0) 0%, rgb(22, 129, 0) 100%);
+  color: white;
+}
+
+#help {
+  background: linear-gradient(130deg, rgb(223, 0, 0) 0%, rgb(144, 0, 130) 100%);
+  color: white;
+}
+
+#weather {
+  background: linear-gradient(130deg, rgb(0, 195, 223) 0%, rgb(26, 0, 144) 100%);
+  color: white;
+}
+
+#resume {
+  background: linear-gradient(130deg, rgb(223, 183, 0) 0%, rgb(144, 63, 0) 100%);
+  color: white;
+}
+
+.box {
+  width: 130px;
+  height: 130px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 0.5rem;
+  float: left;
+}
+
+.name {
+  font-family: "pretendard";
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 1rem;
+  line-height: 1.45rem;
+  user-select: none;
+}
+
+/*# sourceMappingURL=tools.module.css.map */

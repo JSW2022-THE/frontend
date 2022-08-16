@@ -1,0 +1,47 @@
+
+.container {
+  //display: flex;
+  //flex: 2;
+  //align-items: center;
+  //justify-content: center;
+  width: 309px;
+  margin: auto;
+}
+
+#calc {
+  background: linear-gradient(130deg, rgb(33, 197, 0) 0%, rgb(22, 129, 0) 100%);
+  color: white;
+}
+
+#help {
+  background: linear-gradient(130deg, rgba(223,0,0,1) 0%, rgba(144,0,130,1) 100%);
+  color: white;
+}
+
+#weather {
+  background: linear-gradient(130deg, rgba(0,195,223,1) 0%, rgba(26,0,144,1) 100%);
+  color: white;
+}
+
+#resume {
+  background: linear-gradient(130deg, rgba(223,183,0,1) 0%, rgba(144,63,0,1) 100%);
+  color: white;
+}
+
+.box {
+  width: 130px;
+  height: 130px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 0.5rem;
+  float: left;
+}
+
+.name {
+  font-family: 'pretendard';
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 1rem;
+  line-height: 1.45rem;
+  user-select: none;
+}
