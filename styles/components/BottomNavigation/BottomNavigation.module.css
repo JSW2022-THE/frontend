@@ -68,7 +68,8 @@
     bottom: 0;
     width: 100%;
     background: white;
-    height: 60px;
-    border-radius: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 80px;
   }
 }/*# sourceMappingURL=BottomNavigation.module.css.map */
