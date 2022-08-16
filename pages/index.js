@@ -34,7 +34,7 @@ function Login() {
     const REDIRECT_URI =
       process.env.NODE_ENV == "development"
         ? "http://localhost:3000/auth/callback"
-        : "https://jsw2022.pages.dev/auth/callback";
+        : "https://jsw2022.hserver.kr/auth/callback";
     const url = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
     router.push(url);
   };
