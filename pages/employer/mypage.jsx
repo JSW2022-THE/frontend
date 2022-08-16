@@ -11,8 +11,26 @@ import {
 import { useEffect } from "react";
 import axios from "axios";
 import ChannelService from "../../modules/channelTalk/channelTalk";
+import { useRouter } from "next/router";
 
 export default function EmployerMyPage() {
+  const router = useRouter();
+  const logout = () => {
+    axios({
+      method: "GET",
+      url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/auth/logout",
+      withCredentials: true,
+    })
+      .then((res) => {
+        alert(res.data);
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("로그아웃 에러");
+      });
+  };
+
   useEffect(() => {
     const channelTalk = new ChannelService();
     axios({
@@ -51,7 +69,12 @@ export default function EmployerMyPage() {
       <header className="px-5 mt-12 mb-4">
         <span className="flex items-center justify-between">
           <h1 className="text-4xl font-bold ">내 메뉴</h1>
-          <button className="text-sm font-semibold text-gray-400">
+          <button
+            className="text-sm font-semibold text-gray-400"
+            onClick={() => {
+              logout;
+            }}
+          >
             로그아웃
           </button>
         </span>
