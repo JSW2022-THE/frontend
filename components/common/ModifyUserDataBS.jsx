@@ -132,6 +132,9 @@ export default function ModifyUserDataBS(props) {
   return (
     <BottomSheet
       open={props.open}
+      onDismiss={() => {
+        props.handleClose();
+      }}
       header={<header className="font-bold">내 정보 수정</header>}
       footer={
         <footer className="flex justify-between">

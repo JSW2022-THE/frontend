@@ -15,6 +15,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import ModifyUserDataBS from "../../components/common/ModifyUserDataBS";
 
+import ReviewBS from "../../components/employer/ReviewBS";
+
 export default function EmployerMyPage() {
   const router = useRouter();
   //-------------data state----------------
@@ -23,6 +25,7 @@ export default function EmployerMyPage() {
   //-------------element state----------------
   //BS == BottomSheet
   const [modifyUserDataBS, setModifyUserDataBS] = useState(false);
+  const [reviewBS, setReviewBS] = useState(false);
 
   const logout = () => {
     axios({
@@ -132,7 +135,12 @@ export default function EmployerMyPage() {
             <FaFileSignature className="w-6 h-6 ml-1" />
             <p className="text-[13px] font-semibold">근로계약서</p>
           </div>
-          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer">
+          <div
+            onClick={() => {
+              setReviewBS(true);
+            }}
+            className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer"
+          >
             <FaHeart className="w-6 h-6 text-rose-600" />
             <p className="text-[13px] font-semibold">우리가게 리뷰</p>
           </div>
@@ -177,6 +185,15 @@ export default function EmployerMyPage() {
           setStoreData={setStoreData}
           userData={userData}
           setUserData={setUserData}
+        />
+      ) : null}
+      {storeData ? (
+        <ReviewBS
+          open={reviewBS}
+          handleClose={() => {
+            setReviewBS(false);
+          }}
+          storeData={storeData}
         />
       ) : null}
       <BottomNavigation isWorker={false} />
