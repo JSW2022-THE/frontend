@@ -3,6 +3,8 @@ import { BottomSheet } from "react-spring-bottom-sheet";
 import { FaUserCircle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import moment from "moment";
+import "moment/locale/ko";
 
 export default function ReviewBS(props) {
   const [reviews, setReviews] = useState();
@@ -38,7 +40,7 @@ export default function ReviewBS(props) {
                   <ReviewItem
                     key={i.review_uuid}
                     review_msg={i.review_msg}
-                    review_createAt={i.createAt}
+                    review_createdAt={i.createdAt}
                   />
                 );
               })
@@ -60,7 +62,9 @@ function ReviewItem(props) {
         <p className="px-4 text-sm ">{props.review_msg}</p>
       </div>
       <div className="w-16 ">
-        <p className="w-16 text-sm text-gray-400 ">{props.review_createAt}</p>
+        <p className="w-16 text-sm text-gray-400 ">
+          {moment(props.review_createdAt).fromNow()}
+        </p>
       </div>
     </div>
   );
