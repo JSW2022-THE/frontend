@@ -16,7 +16,7 @@ export default function Home() {
       .then((res) => {
         setIsLogin(true);
         console.log("로그인 O");
-        setUserType(res.data.type);
+        setUserType(res.data.category);
       })
       .catch((err) => {
         setIsLogin(false);
