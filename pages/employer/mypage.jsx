@@ -71,9 +71,7 @@ export default function EmployerMyPage() {
           <h1 className="text-4xl font-bold ">내 메뉴</h1>
           <button
             className="text-sm font-semibold text-gray-400"
-            onClick={() => {
-              logout;
-            }}
+            onClick={logout}
           >
             로그아웃
           </button>
