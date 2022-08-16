@@ -12,9 +12,18 @@ import { useEffect } from "react";
 import axios from "axios";
 import ChannelService from "../../modules/channelTalk/channelTalk";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import ModifyUserDataBS from "../../components/common/ModifyUserDataBS";
 
 export default function EmployerMyPage() {
   const router = useRouter();
+  //-------------data state----------------
+  const [userData, setUserData] = useState();
+  const [storeData, setStoreData] = useState();
+  //-------------element state----------------
+  //BS == BottomSheet
+  const [modifyUserDataBS, setModifyUserDataBS] = useState(false);
+
   const logout = () => {
     axios({
       method: "GET",
@@ -31,6 +40,22 @@ export default function EmployerMyPage() {
       });
   };
 
+  const getStoreInfo = () => {
+    axios({
+      method: "GET",
+      url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/store/getInfoByOwnerId",
+      withCredentials: true,
+    })
+      .then((res) => {
+        const _storeData = res.data;
+        setStoreData(_storeData);
+        console.log("스토어 데이터 성공적으로 불러옴");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     const channelTalk = new ChannelService();
     axios({
@@ -40,30 +65,34 @@ export default function EmployerMyPage() {
       withCredentials: true,
     })
       .then((res) => {
-        const userData = res.data;
+        setUserData(res.data);
+        console.log("로그인 O");
+        console.log("유저 데이터 성공적으로 불러옴");
         //로그인이 되어 있을때 고객 정보랑 같이 채널톡 호출
         channelTalk.boot({
           pluginKey: process.env.NEXT_PUBLIC_CT_PLUGIN_KRY,
-          memberId: userData.uuid,
+          memberId: res.data.uuid,
           profile: {
-            name: userData.name,
-            mobileNumber: userData.phone_number,
+            name: res.data.name,
+            mobileNumber: res.data.phone_number,
           },
         });
       })
       .catch((err) => {
         console.log(err);
-        console.log("로그인이 안 되어 있는 상태임");
+        console.log("로그인 X");
         //로그인이 안되어 있을때 고객 정보 없이 채널톡 호출
         channelTalk.boot({
           pluginKey: process.env.NEXT_PUBLIC_CT_PLUGIN_KRY,
         });
       });
 
+    getStoreInfo();
     return () => {
       channelTalk.shutdown();
     };
   }, []);
+
   return (
     <div className="pb-24 font-pretendard">
       <header className="px-5 mt-12 mb-4">
@@ -82,13 +111,17 @@ export default function EmployerMyPage() {
         <span className="flex">
           <FaUserCircle className="mx-1 text-gray-400 w-14 h-14" />
           <div className="ml-3 leading-5">
-            <h1 className="font-semibold text-[16px]">맛있는 크로아상</h1>
+            <h1 className="font-semibold text-[16px]">
+              {storeData ? storeData.name : "가게이름 불러오는중"}
+            </h1>
             <p className="text-sm font-semibold text-[13px] text-gray-400">
-              충북 청주시 상당구 용정로 35
+              {storeData ? storeData.address : "가게위치 불러오는중"}
             </p>
             <span className="flex items-center">
               <FaHeart className="w-[10px] h-[10px] text-rose-600" />
-              <p className="ml-1 text-[13px] text-rose-600">489</p>
+              <p className="ml-1 text-[13px] text-rose-600">
+                {storeData ? storeData.heart : "가게 하트 불러오는중"}
+              </p>
             </span>
           </div>
         </span>
@@ -109,7 +142,12 @@ export default function EmployerMyPage() {
           </div>
         </span>
         <span className="flex items-center justify-between px-4 py-2">
-          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer">
+          <div
+            onClick={() => {
+              setModifyUserDataBS(true);
+            }}
+            className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer"
+          >
             <FaUserCog className="w-6 h-6 " />
             <p className="text-[13px] font-semibold">정보수정</p>
           </div>
@@ -128,6 +166,19 @@ export default function EmployerMyPage() {
           </div>
         </span>
       </section>
+      {/* -------------react-spring-bottom-sheet------------------- */}
+      {userData && storeData ? (
+        <ModifyUserDataBS
+          open={modifyUserDataBS}
+          handleClose={() => {
+            setModifyUserDataBS(false);
+          }}
+          storeData={storeData}
+          setStoreData={setStoreData}
+          userData={userData}
+          setUserData={setUserData}
+        />
+      ) : null}
       <BottomNavigation isWorker={false} />
     </div>
   );
