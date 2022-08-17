@@ -17,7 +17,6 @@ export default function EmployerHome() {
       withCredentials: true,
     })
       .then((res) => {
-        console.log(res.data);
         setStoreData(res.data);
       })
       .catch((err) => {
@@ -85,7 +84,7 @@ export default function EmployerHome() {
             <p className="text-xs text-gray-500">모집 상태</p>
             <h1 className="text-2xl font-semibold">
               {storeData
-                ? storeData.collect_state === "open"
+                ? storeData.collect_activate
                   ? "모집중"
                   : "모집중 아님"
                 : "불러오는중"}
