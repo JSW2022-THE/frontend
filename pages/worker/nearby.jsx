@@ -224,8 +224,9 @@ export default function WorkerNearBy() {
           <footer className="flex justify-between">
             <button
               onClick={() => {
+                setSelectedStore(null);
                 createChatRoom(selectedStore.owner_uuid).then((_data) => {
-                  console.log(_data);
+                  router.push("/chat/" + _data);
                 });
               }}
               className="w-full h-12 mx-2 text-green-700 bg-green-300 rounded-3xl"

@@ -30,6 +30,7 @@ export default function ChatRoom() {
   const [connected, setConnected] = useState(false);
   const [onLoading, setOnLoading] = useState(true);
 
+  const [oppName, setOppName] = useState("");
   const [isOnline, setIsOnline] = useState(false);
   const [lastOnlineFromNow, setLastOnlineFromNow] = useState(null);
 
@@ -68,6 +69,7 @@ export default function ChatRoom() {
               data: { room_id: roomId },
             })
               .then((res) => {
+                setOppName(res.data.data[0].name);
                 setIsOnline(res.data.data[0].is_online);
                 setLastOnlineFromNow(
                   moment(res.data.data[0].last_online).fromNow()
@@ -173,10 +175,10 @@ export default function ChatRoom() {
             className="w-6 h-6 mx-2 text-gray-500 cursor-pointer"
           />
           <FaUserCircle className="w-8 h-8 text-gray-300" />
-          <div className="flex flex-col justify-between h-full py-4 ml-3">
-            <h1 className="font-semibold ">이름이 들어갈 위치(props)</h1>
+          <div className="flex flex-col justify-between h-full py-4 ml-3 -mt-2">
+            <h1 className="text-[17px] font-semibold">{oppName}</h1>
             {isOnline ? (
-              <div className="flex items-center ">
+              <div className="flex items-center -mt-1 ">
                 <FaCircle className="w-2 h-2 text-green-300" />
                 <p className="px-1 text-sm font-light text-gray-400">
                   현재 접속 중
