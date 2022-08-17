@@ -1,7 +1,7 @@
 import BottomNavigation from "../../components/BottomNavigation";
 
 import Header from "../../components/Header";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 import Link from "next/link";
@@ -9,15 +9,21 @@ import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { FaPhone, FaArrowRight } from "react-icons/fa";
 
 export default function EmployerHome() {
-  // useEffect(() => {
-  //   axios({
-  //     method: "GET",
-  //     url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/store/getInfoByOwnerId",
-  //     withCredentials: true,
-  //   }).then((res) => {
-  //     console.log(res);
-  //   });
-  // }, []);
+  const [storeData, setStoreData] = useState();
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/store/getInfoByOwnerId",
+      withCredentials: true,
+    })
+      .then((res) => {
+        console.log(res.data);
+        setStoreData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div className="pb-24 font-pretendard">
       <Header />
@@ -27,13 +33,19 @@ export default function EmployerHome() {
           <div className="flex">
             <div className="w-16 h-16 bg-gray-200 rounded-2xl"></div>
             <div className="px-6 ">
-              <h1 className="text-lg font-semibold">가게 이름</h1>
+              <h1 className="text-lg font-semibold">
+                {storeData ? storeData.name : "가게 이름 불러오는중"}
+              </h1>
               <p className="text-xs text-slate-400">
-                충청북도 청주시 상당구 용암동 235
+                {storeData ? storeData.address : "가게 주소 불러오는중"}
               </p>
               <span className="flex items-center">
                 <FaPhone className="w-3 h-3 " />
-                <p className="ml-1 text-xs">043-261-1234</p>
+                <p className="ml-1 text-xs">
+                  {storeData
+                    ? storeData.phone_number
+                    : "가게 전화번호 불러오는중"}
+                </p>
               </span>
             </div>
           </div>
@@ -59,15 +71,25 @@ export default function EmployerHome() {
         <div className="h-[100px] rounded-2xl flex items-center bg-white px-2 py-5 divide-x">
           <div className="flex flex-col items-center justify-between flex-grow h-full ">
             <p className="text-xs text-gray-500">근로자</p>
-            <h1 className="text-3xl font-semibold">3명</h1>
+            <h1 className="text-3xl font-semibold">
+              {storeData ? storeData.worker_cnt + "명" : "불러오는중"}
+            </h1>
           </div>
           <div className="flex flex-col items-center justify-between flex-grow h-full">
-            <p className="text-xs text-gray-500">근로자</p>
-            <h1 className="text-3xl font-semibold">3명</h1>
+            <p className="text-xs text-gray-500">받은 이력서</p>
+            <h1 className="text-3xl font-semibold">
+              {storeData ? storeData.received_resume_cnt + "개" : "불러오는중"}
+            </h1>
           </div>
           <div className="flex-grow-[1.5] h-full flex flex-col justify-between items-center">
-            <p className="text-xs text-gray-500">근로자</p>
-            <h1 className="text-3xl font-semibold">모집중</h1>
+            <p className="text-xs text-gray-500">모집 상태</p>
+            <h1 className="text-2xl font-semibold">
+              {storeData
+                ? storeData.collect_state === "open"
+                  ? "모집중"
+                  : "모집중 아님"
+                : "불러오는중"}
+            </h1>
           </div>
         </div>
       </section>
