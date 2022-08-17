@@ -178,7 +178,7 @@ export default function WorkerNearBy() {
             {console.log(store)}
             {store.map(data=>{
               return (
-                  <div className={styles.list_store_box}>
+                  <div key={data.store_uuid} className={styles.list_store_box}>
                     <div className={styles.list_store_image}></div>
                     <div className={styles.list_store_info_box}>
                       <div className={styles.list_store_name}>{data.name}</div>
