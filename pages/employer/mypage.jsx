@@ -6,8 +6,8 @@ import {
   FaFileDownload,
   FaHeadset,
   FaUserCog,
-  FaBullhorn,
 } from "react-icons/fa";
+import { BsBoxArrowRight } from "react-icons/bs";
 import { useEffect } from "react";
 import axios from "axios";
 import ChannelService from "../../modules/channelTalk/channelTalk";
@@ -99,15 +99,7 @@ export default function EmployerMyPage() {
   return (
     <div className="pb-24 font-pretendard">
       <header className="px-5 mt-12 mb-4">
-        <span className="flex items-center justify-between">
-          <h1 className="text-4xl font-bold ">내 메뉴</h1>
-          <button
-            className="text-sm font-semibold text-gray-400"
-            onClick={logout}
-          >
-            로그아웃
-          </button>
-        </span>
+        <h1 className="text-4xl font-bold ">내 메뉴</h1>
       </header>
 
       <section className="px-6 mt-12">
@@ -159,10 +151,6 @@ export default function EmployerMyPage() {
             <FaUserCog className="w-6 h-6 " />
             <p className="text-[13px] font-semibold">정보수정</p>
           </div>
-          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer">
-            <FaBullhorn className="w-6 h-6 " />
-            <p className="text-[13px] font-semibold">공지사항</p>
-          </div>
           <div
             onClick={() => {
               window.ChannelIO("showMessenger");
@@ -171,6 +159,13 @@ export default function EmployerMyPage() {
           >
             <FaHeadset className="w-6 h-6 " />
             <p className="text-[13px] font-semibold">고객지원</p>
+          </div>
+          <div
+            onClick={logout}
+            className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer"
+          >
+            <BsBoxArrowRight className="w-6 h-6 " />
+            <p className="text-[13px] font-semibold">로그아웃</p>
           </div>
         </span>
       </section>
