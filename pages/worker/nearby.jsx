@@ -4,12 +4,16 @@ import React, { useEffect, useState } from "react";
 import styles from "../../styles/pages/worker/nearby/nearby.module.css";
 import { useRouter } from "next/router";
 
-import { FaComment } from "react-icons/fa";
+import { FaComment, FaHeart } from "react-icons/fa";
 import axios from "axios";
+
+import { BottomSheet } from "react-spring-bottom-sheet";
+import "react-spring-bottom-sheet/dist/style.css";
 
 export default function WorkerNearBy() {
   const router = useRouter();
   const [store, setStore] = useState([]);
+  const [selectedStore, setSelectedStore] = useState();
   useEffect(() => {
     const script = document.createElement("script");
     script.async = true;
@@ -157,6 +161,21 @@ export default function WorkerNearBy() {
     }
   };
 
+  const createChatRoom = (_target_uuid) => {
+    return axios({
+      method: "POST",
+      url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/chat/createChatRoom",
+      data: { target_uuid: _target_uuid },
+      withCredentials: true,
+    })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <Header />
@@ -179,12 +198,102 @@ export default function WorkerNearBy() {
         <div className={styles.list_store_group}>
           <div className={styles.list_store_container}>
             {store.map((_data) => {
-              return <StoreItem data={_data} key={_data.store_uuid} />;
+              return (
+                <StoreItem
+                  data={_data}
+                  setSelectedStore={setSelectedStore}
+                  key={_data.store_uuid}
+                />
+              );
             })}
           </div>
         </div>
       </div>
-
+      {/* -------------Bottom Sheet------------- */}
+      <BottomSheet
+        open={selectedStore ? true : false}
+        onDismiss={() => {
+          setSelectedStore(null);
+        }}
+        header={
+          <header className="font-bold">
+            {selectedStore ? selectedStore.name : null}
+          </header>
+        }
+        footer={
+          <footer className="flex justify-between">
+            <button
+              onClick={() => {
+                createChatRoom(selectedStore.owner_uuid).then((_data) => {
+                  console.log(_data);
+                });
+              }}
+              className="w-full h-12 mx-2 text-green-700 bg-green-300 rounded-3xl"
+            >
+              채팅하기
+            </button>
+            <button
+              onClick={() => {}}
+              className="w-full h-12 mx-2 bg-slate-200 rounded-3xl"
+            >
+              이력서 제출
+            </button>
+          </footer>
+        }
+      >
+        <div className="px-4 pb-8">
+          <header className="mt-6 text-xl font-bold ">
+            {selectedStore ? selectedStore.name : null}
+          </header>
+          <div className="flex items-center">
+            <FaHeart className="w-[12px] h-[12px] text-rose-600" />
+            <p className="ml-1 text-sm text-rose-600">
+              {selectedStore ? selectedStore.heart : null}
+            </p>
+          </div>
+          <div className="mt-1">
+            <div className="flex text-[15px] items-center ">
+              <p className="mr-2 text-gray-400">주소</p>
+              <p>{selectedStore ? selectedStore.address : null}</p>
+            </div>
+            <div className="flex text-[15px] items-center">
+              <p className="mr-2 text-gray-400">전화번호</p>
+              <p>{selectedStore ? selectedStore.phone_number : null}</p>
+            </div>
+            <div className="flex text-[15px] items-center">
+              <p className="mr-2 text-gray-400">소개</p>
+              <p>{selectedStore ? selectedStore.description : null}</p>
+            </div>
+          </div>
+          <header className="mt-6 text-xl font-bold ">모집 정보</header>
+          <div className="mt-1">
+            <div className="flex text-[15px] items-center ">
+              <p className="mr-2 text-gray-400">상태</p>
+              <p>모집중</p>
+            </div>
+            <div className="flex text-[15px] r">
+              <p className="w-10 h-4 mr-2 text-gray-400 ">소개글</p>
+              <p>{selectedStore ? selectedStore.collect_desc : null}</p>
+            </div>
+            <div className="flex text-[15px] items-center">
+              <p className="mr-2 text-gray-400">시급</p>
+              <p>{selectedStore ? selectedStore.collect_money : null}</p>
+            </div>
+            <div className="flex text-[15px] items-center">
+              <p className="mr-2 text-gray-400">포지션</p>
+              <p>{selectedStore ? selectedStore.collect_position : null}</p>
+            </div>
+            <div className="flex text-[15px] items-center">
+              <p className="mr-2 text-gray-400">근무시간</p>
+              <p>{selectedStore ? selectedStore.collect_time : null}</p>
+            </div>
+            <div className="flex text-[15px] items-center">
+              <p className="mr-2 text-gray-400">모집인원</p>
+              <p>{selectedStore ? selectedStore.collect_person_cnt : null}</p>
+            </div>
+          </div>
+        </div>
+      </BottomSheet>
       <BottomNavigation isWorker={true} />
     </>
   );
@@ -192,7 +301,12 @@ export default function WorkerNearBy() {
 
 function StoreItem(props) {
   return (
-    <div className={styles.list_store_box}>
+    <div
+      onClick={() => {
+        props.setSelectedStore(props.data);
+      }}
+      className={styles.list_store_box}
+    >
       <div className={styles.list_store_image}></div>
       <div className={styles.list_store_info_box}>
         <div className={styles.list_store_name}>{props.data.name}</div>
