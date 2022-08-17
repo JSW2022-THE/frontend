@@ -1,6 +1,6 @@
 import Header from "../../components/Header";
 import BottomNavigation from "../../components/BottomNavigation";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/pages/worker/nearby/nearby.module.css";
 import { useRouter } from "next/router";
 
@@ -9,7 +9,7 @@ import axios from "axios";
 
 export default function WorkerNearBy() {
   const router = useRouter();
-  const [store, setStore] = useState([])
+  const [store, setStore] = useState([]);
   useEffect(() => {
     const script = document.createElement("script");
     script.async = true;
@@ -35,54 +35,57 @@ export default function WorkerNearBy() {
             var lat = position.coords.latitude, // 위도
               lon = position.coords.longitude; // 경도
             // api
-            var positions = []
+            var positions = [];
             axios({
-              method: 'get',
+              method: "get",
               url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/store/getNearBy",
               withCredentials: true,
               params: {
                 lat: lat,
-                lon: lon
+                lon: lon,
               },
-            })
-                .then(r=>{
-                  console.log(r.data)
-                  let _data = [];
-                  for (let i=0;i<r.data.length;i++){
-                    positions.push({
-                      title: r.data[i].name,
-                      latlng: new kakao.maps.LatLng(r.data[i].lat, r.data[i].lon)
-                    })
-                    _data.push(r.data[i])
-                  }
-                  setStore(_data)
-                  for (var i = 0; i < positions.length; i ++) {
-                    var imageSize = new kakao.maps.Size(30, 30);
-                    var imageSrc = 'https://cdn.discordapp.com/attachments/952627326762512467/1009408359994245200/map_marker_blue.png'
-                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-                    var marker = new kakao.maps.Marker({
-                      map: map,
-                      position: positions[i].latlng,
-                      title : positions[i].title,
-                      image : markerImage,
-                      zIndex: 1,
-                    })
-                    var message =
-                        '<div style="margin-bottom: 20px" id="kakaomap_store" class="box blue">' +
-                        `<div class="text">${r.data[i].name}</div>` +
-                        "</div>";
-                    var iwContent = message,
-                        iwRemoveable = false;
-                    var overlay = new kakao.maps.CustomOverlay({
-                      content: iwContent,
-                      map: map,
-                      position: marker.getPosition(),
-                    });
-                    var _store = document.getElementById("kakaomap_store");
-                    var _width = _store.clientWidth;
-                    _store.style.left = `-${_width / 2}px`;
-                  }
-                })
+            }).then((r) => {
+              //console.log(r.data);
+              let _data = [];
+              for (let i = 0; i < r.data.length; i++) {
+                positions.push({
+                  title: r.data[i].name,
+                  latlng: new kakao.maps.LatLng(r.data[i].lat, r.data[i].lon),
+                });
+                _data.push(r.data[i]);
+              }
+              setStore(_data);
+              for (var i = 0; i < positions.length; i++) {
+                var imageSize = new kakao.maps.Size(30, 30);
+                var imageSrc =
+                  "https://cdn.discordapp.com/attachments/952627326762512467/1009408359994245200/map_marker_blue.png";
+                var markerImage = new kakao.maps.MarkerImage(
+                  imageSrc,
+                  imageSize
+                );
+                var marker = new kakao.maps.Marker({
+                  map: map,
+                  position: positions[i].latlng,
+                  title: positions[i].title,
+                  image: markerImage,
+                  zIndex: 1,
+                });
+                var message =
+                  '<div style="margin-bottom: 20px" id="kakaomap_store" class="box blue">' +
+                  `<div class="text">${r.data[i].name}</div>` +
+                  "</div>";
+                var iwContent = message,
+                  iwRemoveable = false;
+                var overlay = new kakao.maps.CustomOverlay({
+                  content: iwContent,
+                  map: map,
+                  position: marker.getPosition(),
+                });
+                var _store = document.getElementById("kakaomap_store");
+                var _width = _store.clientWidth;
+                _store.style.left = `-${_width / 2}px`;
+              }
+            });
 
             var locPosition = new kakao.maps.LatLng(lat, lon),
               message =
@@ -175,20 +178,8 @@ export default function WorkerNearBy() {
         <div className={styles.list_title_guard} />
         <div className={styles.list_store_group}>
           <div className={styles.list_store_container}>
-            {console.log(store)}
-            {store.map(data=>{
-              return (
-                  <div key={data.store_uuid} className={styles.list_store_box}>
-                    <div className={styles.list_store_image}></div>
-                    <div className={styles.list_store_info_box}>
-                      <div className={styles.list_store_name}>{data.name}</div>
-                      <div className={styles.list_store_address}>
-                        {data.address}
-                      </div>
-                      <div className={styles.list_store_sectors}>{data.type}</div>
-                    </div>
-                  </div>
-              )
+            {store.map((_data) => {
+              return <StoreItem data={_data} key={_data.store_uuid} />;
             })}
           </div>
         </div>
@@ -196,5 +187,18 @@ export default function WorkerNearBy() {
 
       <BottomNavigation isWorker={true} />
     </>
+  );
+}
+
+function StoreItem(props) {
+  return (
+    <div className={styles.list_store_box}>
+      <div className={styles.list_store_image}></div>
+      <div className={styles.list_store_info_box}>
+        <div className={styles.list_store_name}>{props.data.name}</div>
+        <div className={styles.list_store_address}>{props.data.address}</div>
+        <div className={styles.list_store_sectors}>{props.data.type}</div>
+      </div>
+    </div>
   );
 }
