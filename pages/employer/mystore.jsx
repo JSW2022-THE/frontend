@@ -1,8 +1,25 @@
 import BottomNavigation from "../../components/BottomNavigation";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FaArrowRight, FaUserCircle } from "react-icons/fa";
+import axios from "axios";
 
 export default function EmployerMyStore() {
+  const [storeData, setStoreData] = useState();
+  const [storeWorkers, setStoreWorkers] = useState(); //해당 스토어 uuid에 따른 노동자 리스트
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/store/getInfoByOwnerId",
+      withCredentials: true,
+    })
+      .then((res) => {
+        console.log(res.data);
+        setStoreData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div className="pb-24 font-pretendard">
       <header className="px-5 mt-12 mb-4">
@@ -11,12 +28,21 @@ export default function EmployerMyStore() {
 
       <section className="px-6 mt-6">
         <p className="text-lg font-semibold text-gray-500 ">
-          모집상태 : 모집중
+          모집상태 :{" "}
+          {storeData
+            ? storeData.collect_state === "open"
+              ? "모집중"
+              : "모집중이 아님"
+            : "불러오는중"}
         </p>
         <div className="h-[80px] bg-white rounded-2xl my-2 flex justify-between items-center p-6">
           <div>
-            <h1 className="font-bold">맛있는 크로아상</h1>
-            <p className="text-sm font-semibold text-gray-400">지원자 {2}명</p>
+            <h1 className="font-bold">
+              {storeData ? storeData.name : "불러오는중"}
+            </h1>
+            <p className="text-sm font-semibold text-gray-400">
+              지원자 (계약서에 해당 스토어 개수)명
+            </p>
           </div>
           <label
             htmlFor="default-toggle"
@@ -40,8 +66,7 @@ export default function EmployerMyStore() {
             <p className="text-xs text-gray-400">여기를 눌러 수정하기</p>
           </span>
           <p className="mt-2 ">
-            안녕하세요, 저희 가게는 24시간 운영되고 있는 음식 점입니다. 임금은
-            최저임금이며, 자세한 내용은 아래 항목들을 참고해주세요 :)
+            {storeData ? storeData.collect_desc : "불러오는중"}
           </p>
         </div>
         <div className="p-4 my-2 bg-white rounded-2xl">
@@ -52,19 +77,27 @@ export default function EmployerMyStore() {
           <div className="leading-[22px] mt-3">
             <span className="flex">
               <p className="text-gray-500">시급</p>
-              <p className="ml-2 font-semibold">10000원</p>
+              <p className="ml-2 font-semibold">
+                {storeData ? storeData.collect_money + "원" : "불러오는중"}
+              </p>
             </span>
             <span className="flex">
               <p className="text-gray-500">포지션</p>
-              <p className="ml-2 font-semibold">주방보조 서빙 배달</p>
+              <p className="ml-2 font-semibold">
+                {storeData ? storeData.collect_position : "불러오는중"}
+              </p>
             </span>
             <span className="flex">
               <p className="text-gray-500">근무시간</p>
-              <p className="ml-2 font-semibold">5시간 (오후/오전 선택)</p>
+              <p className="ml-2 font-semibold">
+                {storeData ? storeData.collect_time : "불러오는중"}
+              </p>
             </span>
             <span className="flex">
               <p className="text-gray-500">모집인원</p>
-              <p className="ml-2 font-semibold">3명</p>
+              <p className="ml-2 font-semibold">
+                {storeData ? storeData.collect_person_cnt + "명" : "불러오는중"}
+              </p>
             </span>
           </div>
         </div>
@@ -75,7 +108,9 @@ export default function EmployerMyStore() {
           <div className="text-[13px] leading-4">
             <div className="flex font-semibold">
               <p className="">지금까지 지원한 이력서 총 </p>
-              <p className=" text-[#3E8752] ml-1">2</p>
+              <p className=" text-[#3E8752] ml-1">
+                (계약서에 해당 스토어 개수)
+              </p>
               <p>개</p>
             </div>
             <p className="">이력서 보러가기</p>
