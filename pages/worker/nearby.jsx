@@ -185,7 +185,7 @@ export default function WorkerNearBy() {
                       <div className={styles.list_store_address}>
                         {data.address}
                       </div>
-                      <div className={styles.list_store_sectors}>{''}</div>
+                      <div className={styles.list_store_sectors}>{data.type}</div>
                     </div>
                   </div>
               )
