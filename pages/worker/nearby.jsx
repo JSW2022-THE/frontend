@@ -162,14 +162,14 @@ export default function WorkerNearBy() {
   };
 
   const createChatRoom = (_target_uuid) => {
-    return axios({
+    axios({
       method: "POST",
       url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/chat/createChatRoom",
       data: { target_uuid: _target_uuid },
       withCredentials: true,
     })
       .then((res) => {
-        return res.data;
+        router.push("/chat/" + res.data.created_chat_room_id);
       })
       .catch((err) => {
         console.log(err);
@@ -225,9 +225,7 @@ export default function WorkerNearBy() {
             <button
               onClick={() => {
                 setSelectedStore(null);
-                createChatRoom(selectedStore.owner_uuid).then((_data) => {
-                  router.push("/chat/" + _data);
-                });
+                createChatRoom(selectedStore.owner_uuid);
               }}
               className="w-full h-12 mx-2 text-green-700 bg-green-300 rounded-3xl"
             >
