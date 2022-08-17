@@ -402,3 +402,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+public/sw.js.map
+public/workbox-eac1af49.js
+public/sw.js

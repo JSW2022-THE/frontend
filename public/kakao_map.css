@@ -2,10 +2,19 @@
     border: none;
     box-shadow: 0px 7px 15px 0px rgba(170, 170, 170, 0.7);
     background: white;
-    background: #007e02;
     border-radius: 10px;
     position: absolute;
     bottom: 20px;
+}
+
+.green {
+    background: #007e02;
+    color: white;
+}
+
+.blue {
+    background: #21257d;
+    color: white;
 }
 
 .text {
