@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Header from "../../../components/Header";
 import styles from '../../../styles/pages/contract/confirm/confirm.module.css'
 import {
+    AlertTitle,
     Button,
     Checkbox,
     CircularProgress,
@@ -47,8 +48,10 @@ const View = () => {
             </div>
         </div>
     )
+    const [buttonView, setButtonView] = useState(false)
     const [formData, setFormData] = useState({
         company_name: '',
+        company_uuid: '',
         ceo_name: '',
         company_number: '',
         contract_start_date: '',
@@ -77,7 +80,9 @@ const View = () => {
             agreement: false,
         },
         worker_name: '',
+        worker_uuid: '',
         work_rest_day: '',
+        worker_sign_data_url: '',
     })
     const DarkerDisabledTextField = withStyles({
         root: {
@@ -378,21 +383,51 @@ const View = () => {
                             />
                         </RadioGroup>
                     </FormControl>
-                    <FormControl required>
-                        <FormLabel focused={false} style={{textAlign: 'center'}} className={styles.menuItem}>근로자 서명</FormLabel>
-                        <SignatureCanvas ref={signCanvas} penColor='black' canvasProps={{className: styles.signCanvas}} redrawOnResize clearOnResize={false}/>
-                        <Button style={{marginTop: '0.5rem'}} onClick={()=>signCanvas.current.clear()} color='success' className={styles.replayButton} variant="outlined" startIcon={<ReplayIcon />}>
-                            서명 다시하기
+                    {buttonView?(
+                        <FormControl required>
+                            <FormLabel focused={false} style={{textAlign: 'center'}} className={styles.menuItem}>근로자 서명</FormLabel>
+                            <SignatureCanvas ref={signCanvas} penColor='black' canvasProps={{className: styles.signCanvas}} redrawOnResize clearOnResize={false}/>
+                            <Button style={{marginTop: '0.5rem'}} onClick={()=>signCanvas.current.clear()} color='success' className={styles.replayButton} variant="outlined" startIcon={<ReplayIcon />}>
+                                서명 다시하기
+                            </Button>
+                        </FormControl>
+                    ):(null)}
+                    {buttonView?(
+                        <Button
+                            color='success'
+                            className={styles.sendButton}
+                            variant="outlined"
+                            size="large"
+                            onClick={()=>{
+                                setFormData({...formData, worker_sign_data_url: signCanvas.current.getTrimmedCanvas().toDataURL('image/png')})
+                                axios({
+                                    method:'post',
+                                    url: process.env.NEXT_PUBLIC_BACKEND_URL+'/api/contract/confirm_ok',
+                                    data: {
+                                        contract_uuid: contract_uuid,
+                                        worker_sign_data_url: formData.worker_sign_data_url,
+                                        secret: code,
+                                        worker_uuid: formData.worker_uuid,
+                                    },
+                                    withCredentials: true,
+                                })
+                                    .then(r=>{
+                                        if(r.data.status != 'ok') {
+                                            return alert('처리 중 오류가 발생하였습니다')
+                                        }
+                                        setNowView(false)
+                                        setLoadingView(
+                                            <Alert severity="info" className={styles.menuItem}>
+                                                <AlertTitle className={styles.info}>처리가 완료되었습니다.</AlertTitle>
+                                                동의가 완료되었습니다. 문자를 통해 전자근로계약서를 보내드립니다.
+                                            </Alert>
+                                        )
+                                    })
+                            }}
+                        >
+                            <strong>계약 동의 및 진행하기</strong>
                         </Button>
-                    </FormControl>
-                    <Button
-                        color='success'
-                        className={styles.sendButton}
-                        variant="outlined"
-                        size="large"
-                    >
-                        <strong>계약 동의 및 진행하기</strong>
-                    </Button>
+                    ):(null)}
                 </Stack>
             </LocalizationProvider>
         </div>
@@ -461,13 +496,15 @@ const View = () => {
                 alert('서버와 통신 중 오류가 발생하였습니다. 새로고침 후 다시 시도해주세요.')
             })
 
+        if(router.query.status != 'true') {
+            setButtonView(true)
+        }
 
     }, [router.isReady])
     
     return (
         <>
             <Header />
-            {loadingView}
             <div className={styles.title_create}>
                 <div className={styles.title_big}>
                     전자근로계약서 확인
@@ -476,6 +513,7 @@ const View = () => {
                     작성된 계약서를 확인합니다.
                 </div>
             </div>
+            {loadingView}
             {errorView}
             {passwordView?(
                 <div className={styles.password_input_container}>
