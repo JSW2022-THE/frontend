@@ -3,6 +3,7 @@ import BottomNavigation from "../../components/BottomNavigation";
 import styles from "../../styles/pages/worker/home/home.module.css";
 
 export default function WorkerHome() {
+  const day = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"]
   return (
     <>
       <Header />
@@ -39,8 +40,8 @@ export default function WorkerHome() {
       </div>
       <div className={styles.square_large}>
         <div className={styles.square_date}>
-          <div className={styles.square_day}>22</div>
-          <div className={styles.square_day_mini}>금요일</div>
+          <div className={styles.square_day}>{new Date().getDate()}</div>
+          <div className={styles.square_day_mini}>{day[new Date().getDay()]}</div>
         </div>
         <div className={styles.square_todo_container}>
           <div className={styles.square_todo_box}>
