@@ -115,7 +115,9 @@ export default function WorkerMyPage() {
       </section>
       <section className="px-8 py-4">
         <div
-          // onClick={() => {}} 여기에 이력서 페이지 이동 로직 구현 ㄱ
+          onClick={() => {
+            router.push("/worker/myresume");
+          }}
           className="h-[55px] bg-white rounded-2xl py-4 px-6 flex"
         >
           <FaFileAlt className="w-6 h-6" />

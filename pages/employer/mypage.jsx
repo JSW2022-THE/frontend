@@ -136,7 +136,17 @@ export default function EmployerMyPage() {
             <FaHeart className="w-6 h-6 text-rose-600" />
             <p className="text-[13px] font-semibold">우리가게 리뷰</p>
           </div>
-          <div className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer">
+          <div
+            onClick={() => {
+              router.push(
+                "/employer/received-resumes?store_uuid=" +
+                  storeData.store_uuid +
+                  "&employer_uuid=" +
+                  userData.uuid
+              );
+            }}
+            className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer"
+          >
             <FaFileDownload className="w-6 h-6 " />
             <p className="text-[13px] font-semibold">이력서 보기</p>
           </div>

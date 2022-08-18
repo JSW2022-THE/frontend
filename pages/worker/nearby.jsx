@@ -14,6 +14,21 @@ export default function WorkerNearBy() {
   const router = useRouter();
   const [store, setStore] = useState([]);
   const [selectedStore, setSelectedStore] = useState();
+  const [resumeData, setResumeData] = useState();
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/resume/getMyResume",
+      withCredentials: true,
+    })
+      .then((res) => {
+        setResumeData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   useEffect(() => {
     const script = document.createElement("script");
     script.async = true;
@@ -232,7 +247,23 @@ export default function WorkerNearBy() {
               채팅하기
             </button>
             <button
-              onClick={() => {}}
+              onClick={() => {
+                axios({
+                  method: "post",
+                  url:
+                    process.env.NEXT_PUBLIC_BACKEND_URL +
+                    "/api/resume/submitResume",
+                  data: { resume_data: resumeData, store_data: selectedStore },
+                  withCredentials: true,
+                })
+                  .then((res) => {
+                    alert("이력서 제출이 완료되었습니다.");
+                    setSelectedStore(null);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              }}
               className="w-full h-12 mx-2 bg-slate-200 rounded-3xl"
             >
               이력서 제출
