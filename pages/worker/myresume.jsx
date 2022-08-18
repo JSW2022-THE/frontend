@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import Header from "../../components/Header";
 import axios from "axios";
+import BottomNavigation from "../../components/BottomNavigation";
 
 export default function WorkerMyResume() {
   const [resumeData, setResumeData] = useState();
@@ -50,6 +51,7 @@ export default function WorkerMyResume() {
           이력서 수정하기
         </button>
       </div>
+      <BottomNavigation isWorker={true} />
     </div>
   );
 }

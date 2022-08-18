@@ -2,6 +2,7 @@ import BottomNavigation from "../../components/BottomNavigation";
 import { useEffect, useState } from "react";
 import { FaArrowRight, FaUserCircle } from "react-icons/fa";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
@@ -16,6 +17,30 @@ export default function EmployerMyStore() {
   const [modifiedCollectDescData, setModifiedCollectDescData] = useState();
   const [modifiedCollectInfoData, setModifiedCollectInfoData] = useState({});
 
+  const [resumes, setResumes] = useState();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (storeData) {
+      getResumes();
+    }
+  }, [storeData]);
+  const getResumes = () => {
+    axios({
+      method: "GET",
+      url:
+        process.env.NEXT_PUBLIC_BACKEND_URL +
+        "/api/resume/getStoreReceivedResumes",
+      params: { store_uuid: storeData.store_uuid },
+      withCredentials: true,
+    })
+      .then((res) => {
+        setResumes(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const getStoreData = () => {
     axios({
       method: "GET",
@@ -158,12 +183,19 @@ export default function EmployerMyStore() {
       </section>
       <section className="px-6 mt-6 ">
         {/* <Link href="/여기에 이력서 링크 입력"> //TODO:이력서 페이지 링크하기 */}
-        <div className="h-[70px] bg-[#E4EEE9] rounded-2xl flex items-center justify-between px-6 py-4 cursor-pointer">
+        <div
+          onClick={() => {
+            router.push(
+              "/employer/received-resumes?store_uuid=" + storeData.store_uuid
+            );
+          }}
+          className="h-[70px] bg-[#E4EEE9] rounded-2xl flex items-center justify-between px-6 py-4 cursor-pointer"
+        >
           <div className="text-[13px] leading-4">
             <div className="flex font-semibold">
               <p className="">지금까지 지원한 이력서 총 </p>
               <p className=" text-[#3E8752] ml-1">
-                (계약서에 해당 스토어 개수)
+                {resumes ? resumes.length : "0"}
               </p>
               <p>개</p>
             </div>

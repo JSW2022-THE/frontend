@@ -10,6 +10,27 @@ import { FaPhone, FaArrowRight } from "react-icons/fa";
 
 export default function EmployerHome() {
   const [storeData, setStoreData] = useState();
+  const [resumes, setResumes] = useState();
+
+  useEffect(() => {
+    if (storeData) {
+      axios({
+        method: "GET",
+        url:
+          process.env.NEXT_PUBLIC_BACKEND_URL +
+          "/api/resume/getStoreReceivedResumes",
+        params: { store_uuid: storeData.store_uuid },
+        withCredentials: true,
+      })
+        .then((res) => {
+          setResumes(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [storeData]);
+
   useEffect(() => {
     axios({
       method: "GET",
@@ -77,7 +98,7 @@ export default function EmployerHome() {
           <div className="flex flex-col items-center justify-between flex-grow h-full">
             <p className="text-xs text-gray-500">받은 이력서</p>
             <h1 className="text-3xl font-semibold">
-              {storeData ? storeData.received_resume_cnt + "개" : "불러오는중"}
+              {resumes ? resumes.length + "개" : "0개"}
             </h1>
           </div>
           <div className="flex-grow-[1.5] h-full flex flex-col justify-between items-center">

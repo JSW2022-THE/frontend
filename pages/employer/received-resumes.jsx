@@ -4,13 +4,13 @@ import { useState } from "react";
 import axios from "axios";
 import Header from "../../components/Header";
 import { FaUserCircle } from "react-icons/fa";
+import BottomNavigation from "../../components/BottomNavigation";
 
 export default function EmployerReceivedResumes() {
   const router = useRouter();
   const [resumes, setResumes] = useState();
 
   const store_uuid = router.query.store_uuid; //store_uuid
-  const employer_uuid = router.query.employer_uuid; //employer_uuid
 
   const getResumes = () => {
     axios({
@@ -53,6 +53,7 @@ export default function EmployerReceivedResumes() {
             })
           : null}
       </div>
+      <BottomNavigation isWorker={false} />
     </div>
   );
 }

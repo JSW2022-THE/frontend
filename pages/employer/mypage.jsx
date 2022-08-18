@@ -139,10 +139,7 @@ export default function EmployerMyPage() {
           <div
             onClick={() => {
               router.push(
-                "/employer/received-resumes?store_uuid=" +
-                  storeData.store_uuid +
-                  "&employer_uuid=" +
-                  userData.uuid
+                "/employer/received-resumes?store_uuid=" + storeData.store_uuid
               );
             }}
             className="w-[90px] h-[70px] bg-white rounded-3xl flex flex-col items-center justify-center cursor-pointer"
