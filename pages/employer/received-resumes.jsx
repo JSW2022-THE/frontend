@@ -7,9 +7,8 @@ import { FaUserCircle } from "react-icons/fa";
 import BottomNavigation from "../../components/BottomNavigation";
 
 export default function EmployerReceivedResumes() {
-  const router = useRouter();
   const [resumes, setResumes] = useState();
-
+  const router = useRouter();
   const store_uuid = router.query.store_uuid; //store_uuid
 
   const getResumes = () => {
@@ -59,6 +58,22 @@ export default function EmployerReceivedResumes() {
 }
 
 function ResumeItem(props) {
+  const router = useRouter();
+  const createContract = () => {
+    axios({
+      method: "GET",
+      url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/contract/access/",
+      headers: { worker_uuid: props.resumeData.worker_uuid },
+      withCredentials: true,
+    })
+      .then((res) => {
+        console.log(res.data);
+        router.push("/contract/create?token=" + res.data.token);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="flex flex-col justify-between p-6 bg-white rounded-3xl h-ful">
       <div className="l">
@@ -107,7 +122,10 @@ function ResumeItem(props) {
         >
           삭제
         </button>
-        <button className="w-full h-12 mx-2 font-bold text-white bg-green-400 rounded-2xl">
+        <button
+          onClick={createContract}
+          className="w-full h-12 mx-2 font-bold text-white bg-green-400 rounded-2xl"
+        >
           근로계약서 작성
         </button>
       </div>
